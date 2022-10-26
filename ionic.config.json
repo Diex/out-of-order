@@ -1,0 +1,7 @@
+{
+  "name": "out-of-order",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
