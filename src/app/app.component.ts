@@ -16,6 +16,8 @@ export class AppComponent {
     private router: Router
   ) {}
 
+  deferredPrompt;
+  
   ngOnInit(): void {
     this.platform.ready().then(() => {
       console.log('platform ready');
@@ -32,6 +34,32 @@ export class AppComponent {
         os: os,
       })
       console.log(os, mode, name_browser, ver_browser);
+
+      if (mode === 'standalone') { // already installed
+        this.router.navigate(['/pages/home']);
+      } else {        
+        // https://web.dev/customize-install/#show_the_prompt
+        window.addEventListener('beforeinstallprompt', (e) => {
+          e.preventDefault();
+          this.deferredPrompt = e;
+          // https://stackoverflow.com/questions/57572999/beforeinstallprompt-event-is-not-caught-second-time-user-enters-the-page
+          // TODO Optionally, send analytics event that PWA install promo was shown.
+          console.log(`'beforeinstallprompt' event was fired.`, e);
+        });
+
+        window.addEventListener('appinstalled', async () => {
+          this.deferredPrompt = null;
+          // TODO Optionally, send analytics event to indicate successful install
+          console.log('PWA was installed');
+          this.store.get('store').then((store) => {
+            this.store.set('store', {
+              ...store,
+              displayMode: 'standalone',
+            });                        
+            this.router.navigate(['/pages/postinstall']);
+          });
+        });
+      }
     });
   }
 
