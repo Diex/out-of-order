@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { BrowserGuard } from '../guards/browser.guard';
 import { InstalledGuard } from '../guards/installed.guard';
 
 import { HomeComponent } from './home/home.component';
@@ -20,14 +21,17 @@ const routes: Routes = [
   {
     path: 'onboard',
     component: OnboardComponent,
+    canActivate: [BrowserGuard]
   },
   {
     path: 'install',
-    component: InstallComponent
+    component: InstallComponent,
+    canActivate: [BrowserGuard]
   },
   {
     path: 'postinstall',
-    component: PostinstallComponent
+    component: PostinstallComponent,
+    canActivate: [BrowserGuard]
   },
   {
     path: 'home',
