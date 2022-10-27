@@ -11,6 +11,7 @@ import { environment } from '../environments/environment';
 // import { PagesModule } from './pages/pages.module';
 import { StorageService } from './services/localstorage.service';
 import { IonicStorageModule } from '@ionic/storage-angular';
+import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 
 @NgModule({
   declarations: [AppComponent],
@@ -30,10 +31,12 @@ import { IonicStorageModule } from '@ionic/storage-angular';
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     StorageService,
     // https://49academy.com/angular-angular-run-angular-service-in-bootstrap/
-    {provide : APP_INITIALIZER, useFactory : initFunction, deps: [StorageService] , multi : true}
+    {provide : APP_INITIALIZER, useFactory : initFunction, deps: [StorageService] , multi : true},
+    { provide: LocationStrategy, useClass: HashLocationStrategy },
   ],
   bootstrap: [AppComponent],
 })
+
 export class AppModule {}
 
 export function initFunction(storage : StorageService)

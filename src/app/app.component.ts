@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { SwUpdate } from '@angular/service-worker';
 import { Platform } from '@ionic/angular';
 import { StorageService } from './services/localstorage.service';
 
@@ -10,7 +11,7 @@ import { StorageService } from './services/localstorage.service';
 })
 export class AppComponent {
   constructor(
-    // private swUpdate: SwUpdate,
+    private swUpdate: SwUpdate,
     private store: StorageService,
     public platform: Platform,
     private router: Router
@@ -36,6 +37,9 @@ export class AppComponent {
       console.log(os, mode, name_browser, ver_browser);
 
       if (mode === 'standalone') { // already installed
+        console.log('check for notifications')
+        // check for notifications
+        this.notifyMe();
         this.router.navigate(['/pages/home']);
       } else {        
         // https://web.dev/customize-install/#show_the_prompt
@@ -60,7 +64,12 @@ export class AppComponent {
           });
         });
       }
+      
+      this.update();
+
     });
+
+    
   }
 
   getPWADisplayMode() {
@@ -133,5 +142,83 @@ export class AppComponent {
     if ((tem = userAgent.match(/version\/(\d+)/i)) != null)
       matchTest.splice(1, 1, tem[1]);
     return matchTest.join(' ');
+  }
+
+  notifyMe() {
+    console.log('requesting notifications permission');
+    if (!('Notification' in window)) {
+      console.log('no notifications')
+      // Check if the browser supports notifications
+      alert('This browser does not support desktop notification. sorry');
+    } else if (Notification.permission === 'granted') {
+      // Check whether notification permissions have already been granted;
+      // if so, create a notification
+      console.log('notifications granted')
+      // const notification = new Notification('Hi there!');
+      // this.notifications.subscribeToFCM();
+    } else if (Notification.permission !== 'denied') {
+      // We need to ask the user for permission
+      console.log('ask for permission')
+      Notification.requestPermission().then((permission) => {
+        // If the user accepts, let's create a notification
+        if (permission === 'granted') {
+          const notification = new Notification('Thank you!');
+          // …
+        }
+      });
+    }else{
+      console.log('shit happens')
+    }
+  }
+
+  notifyMe2(){
+    if (Notification.permission === "default") {
+      return Notification.requestPermission().then((permission) => {
+        console.log(permission); // "granted", "default", "blocked"
+       
+        // If the user accepts
+        if (permission === "granted") { return true; }
+        // If the user clicks away or clicks "Block" 
+        return false;
+      });
+    } else if (Notification.permission === "denied") {
+      // if the permissions are blocked, we cannot open the option - the user must do it manually
+      window.confirm("Your browser is blocking notifications. Click the     🔒 icon in the URL bar to change your notification preferences.");
+      return false;
+    } else {
+      // hence permission is already "granted"
+      return true;
+    }
+  }
+
+  update() {
+    console.log('checking for updates...');
+    
+    navigator.serviceWorker.ready.then((serviceWorkerRegistration) => {
+      // console.log(serviceWorkerRegistration, this.swUpdate);
+      this.swUpdate.versionUpdates.subscribe((e) => {
+        // here you can reload your page
+        console.log(e);
+        switch (e.type) {
+          case 'VERSION_DETECTED':
+            console.log(`Downloading new app version: ${e.version.hash}`);
+            break;
+          case 'VERSION_READY':
+            console.log(`Current app version: ${e.currentVersion.hash}`);
+            console.log(
+              `New app version ready for use: ${e.latestVersion.hash}`
+            );
+            window.location.reload();
+            break;
+          case 'VERSION_INSTALLATION_FAILED':
+            console.log(
+              `Failed to install app version '${e.version.hash}': ${e.error}`
+            );
+            break;
+        }
+      })
+    }
+      
+    );
   }
 }
