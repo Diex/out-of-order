@@ -24,3 +24,27 @@
 @import "~@ionic/angular/css/text-alignment.css";
 @import "~@ionic/angular/css/text-transformation.css";
 @import "~@ionic/angular/css/flex-utils.css";
+
+
+
+@font-face {   
+    font-family: 'Pixels';
+    src: url('/assets/fonts/neuepixelsans.ttf');
+  }
+
+  ion-content {
+    --background: #fff;
+    font-family: "Pixels";
+    font-size: 10vh;
+    font-weight: 500;
+  
+    --padding-start: 6vw;
+    --padding-end: 6vw;
+    --padding-top: 1vh;
+    --padding-bottom: 1vh;
+  }
+
+  ion-button {
+    font-family: "Pixels";    
+  }
+
