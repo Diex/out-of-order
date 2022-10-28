@@ -29,7 +29,9 @@
                 "input": "node_modules/ionicons/dist/ionicons/svg",
                 "output": "./svg"
               },
-              "src/manifest.webmanifest"
+              "src/manifest.webmanifest",
+              "src/app-service-worker.js",
+              "src/firebase-message-service-worker.js"
             ],
             "styles": ["src/theme/variables.scss", "src/global.scss"],
             "scripts": [],

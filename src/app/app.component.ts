@@ -18,7 +18,7 @@ export class AppComponent {
   ) {}
 
   deferredPrompt;
-  
+
   ngOnInit(): void {
     this.platform.ready().then(() => {
       console.log('platform ready');
@@ -26,8 +26,7 @@ export class AppComponent {
       let mode = this.getPWADisplayMode();
       let name_browser = this.findname_browser();
       let ver_browser = this.findver_browser();
-      
-      
+
       this.store.get('store').then((store) => {
         this.store.set('store', {
           ...store,
@@ -35,18 +34,19 @@ export class AppComponent {
           ua: name_browser,
           version: ver_browser,
           os: os,
-        });                        
+        });
       });
-      
+
       console.log(os, mode, name_browser, ver_browser);
 
-      if (mode === 'standalone') { // already installed
-        console.log('check for notifications')
+      if (mode === 'standalone') {
+        // already installed
+        console.log('check for notifications');
         // check for notifications
         // this.notifyMe();
         this.notifyMe2();
         this.router.navigate(['/pages/home']);
-      } else {        
+      } else {
         // https://web.dev/customize-install/#show_the_prompt
         window.addEventListener('beforeinstallprompt', (e) => {
           e.preventDefault();
@@ -64,17 +64,14 @@ export class AppComponent {
             this.store.set('store', {
               ...store,
               displayMode: 'standalone',
-            });                        
+            });
             this.router.navigate(['/pages/postinstall']);
           });
         });
       }
-      
+
       this.update();
-
     });
-
-    
   }
 
   getPWADisplayMode() {
@@ -177,33 +174,40 @@ export class AppComponent {
   //   }
   // }
 
-  notifyMe2(){
-    if (Notification.permission === "default") {
+  notifyMe2() {
+    if (Notification.permission === 'default') {
       return Notification.requestPermission().then((permission) => {
         console.log(permission); // "granted", "default", "blocked"
-       
+
         // If the user accepts
-        if (permission === "granted") { 
-          const notification = new Notification('Thank you!', {body: 'Out Of Order', icon: './assets/icon/favicon.png'});
-          notification.onclick = () => console.log('user gran permission for notifications')
-          return true; 
+        if (permission === 'granted') {
+          const notification = new Notification('Thank you!', {
+            body: 'Out Of Order',
+            icon: './assets/icon/favicon.png',
+          });
+          notification.onclick = () =>
+            console.log('user gran permission for notifications');
+          return true;
         }
-        // If the user clicks away or clicks "Block" 
+        // If the user clicks away or clicks "Block"
         return false;
       });
-    } else if (Notification.permission === "denied") {
+    } else if (Notification.permission === 'denied') {
       // if the permissions are blocked, we cannot open the option - the user must do it manually
-      window.confirm("Your browser is blocking notifications. Change your notification preferences.");
+      window.confirm(
+        'Your browser is blocking notifications. Change your notification preferences.'
+      );
       return false;
     } else {
       // hence permission is already "granted"
+      console.log('notifications already granted')
       return true;
     }
   }
 
   update() {
     console.log('checking for updates...');
-    
+
     navigator.serviceWorker.ready.then((serviceWorkerRegistration) => {
       // console.log(serviceWorkerRegistration, this.swUpdate);
       this.swUpdate.versionUpdates.subscribe((e) => {
@@ -226,9 +230,7 @@ export class AppComponent {
             );
             break;
         }
-      })
-    }
-      
-    );
+      });
+    });
   }
 }
