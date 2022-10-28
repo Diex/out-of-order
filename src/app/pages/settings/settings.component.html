@@ -1,3 +1,25 @@
-<p>
-<a href="chrome://settings/content/notifications">click here for notifications settings</a>
-</p>
+<ion-content>
+    <ion-list>
+        <ion-radio-group [value]="notifications" (ionChange)="updateNotifications($event)">
+            <ion-item>
+                <ion-radio slot="start" value="1"></ion-radio>
+                <ion-label class="label">ONCE A DAY</ion-label>
+              </ion-item>
+              <ion-item>
+                <ion-radio slot="start" value="2"></ion-radio>
+                <ion-label class="label">TWICE A WEEK</ion-label>
+              </ion-item>
+              <ion-item>
+                <ion-radio slot="start" value="3"></ion-radio>
+                <ion-label class="label">3 TIMES A WEEK</ion-label>
+              </ion-item>
+              <ion-item>
+                <ion-radio slot="start" value="4"></ion-radio>
+                <ion-label class="label">RANDOM</ion-label>
+              </ion-item>
+        </ion-radio-group>
+        <ion-item lines="none" >
+            <ion-label slot="end" class="label" position="stacked" routerLink="/pages/home">X</ion-label>
+          </ion-item>
+    </ion-list>
+  </ion-content>

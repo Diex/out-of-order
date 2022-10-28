@@ -10,6 +10,7 @@ import { IonicModule } from '@ionic/angular';
 import { OnboardComponent } from './onboard/onboard.component';
 import { InstallComponent } from './install/install.component';
 import { PostinstallComponent } from './postinstall/postinstall.component';
+import { FormsModule } from '@angular/forms';
 
 
 
@@ -27,7 +28,8 @@ import { PostinstallComponent } from './postinstall/postinstall.component';
   imports: [
     CommonModule,
     IonicModule.forRoot(),
-    PagesRoutingModule
+    PagesRoutingModule,
+    FormsModule
   ]
 })
 export class PagesModule { }

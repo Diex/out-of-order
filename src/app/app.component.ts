@@ -28,12 +28,16 @@ export class AppComponent {
       let ver_browser = this.findver_browser();
       
       
-      this.store.set('store', {
-        displayMode: mode,
-        ua: name_browser,
-        version: ver_browser,
-        os: os,
-      })
+      this.store.get('store').then((store) => {
+        this.store.set('store', {
+          ...store,
+          displayMode: mode,
+          ua: name_browser,
+          version: ver_browser,
+          os: os,
+        });                        
+      });
+      
       console.log(os, mode, name_browser, ver_browser);
 
       if (mode === 'standalone') { // already installed
