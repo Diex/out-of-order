@@ -1,5 +1,14 @@
 {
   "projects": {
     "default": "outoforder-2022"
+  },
+  "targets": {
+    "outoforder-2022": {
+      "hosting": {
+        "app": [
+          "outoforder-2022"
+        ]
+      }
+    }
   }
 }

@@ -33,7 +33,10 @@
               "src/app-service-worker.js",
               "src/firebase-message-service-worker.js"
             ],
-            "styles": ["src/theme/variables.scss", "src/global.scss"],
+            "styles": [
+              "src/theme/variables.scss",
+              "src/global.scss"
+            ],
             "scripts": [],
             "aot": false,
             "vendorChunk": true,
@@ -46,6 +49,14 @@
             "ngswConfigPath": "ngsw-config.json"
           },
           "configurations": {
+            "prod-debug":{
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.prod.ts"
+                }
+              ]
+            },
             "production": {
               "fileReplacements": [
                 {
@@ -146,6 +157,16 @@
             "ci": {
               "devServerTarget": "app:serve:ci"
             }
+          }
+        },
+        "deploy": {
+          "builder": "@angular/fire:deploy",
+          "options": {
+            "prerender": false,
+            "ssr": false,
+            "browserTarget": "app:build:production",
+            "firebaseProject": "outoforder-2022",
+            "firebaseHostingSite": "outoforder-2022"
           }
         }
       }

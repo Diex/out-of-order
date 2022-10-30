@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { SwUpdate } from '@angular/service-worker';
 import { Platform } from '@ionic/angular';
 import { StorageService } from './services/localstorage.service';
+import { NotificationsService } from './services/notifications.service';
 
 @Component({
   selector: 'app-root',
@@ -14,7 +15,8 @@ export class AppComponent {
     private swUpdate: SwUpdate,
     private store: StorageService,
     public platform: Platform,
-    private router: Router
+    private router: Router,
+    private notifications:NotificationsService
   ) {}
 
   deferredPrompt;
@@ -43,8 +45,7 @@ export class AppComponent {
         // already installed
         console.log('check for notifications');
         // check for notifications
-        // this.notifyMe();
-        this.notifyMe2();
+        this.notifications.notifyMe2();
         this.router.navigate(['/pages/home']);
       } else {
         // https://web.dev/customize-install/#show_the_prompt
@@ -60,13 +61,8 @@ export class AppComponent {
           this.deferredPrompt = null;
           // TODO Optionally, send analytics event to indicate successful install
           console.log('PWA was installed');
-          this.store.get('store').then((store) => {
-            this.store.set('store', {
-              ...store,
-              displayMode: 'standalone',
-            });
-            this.router.navigate(['/pages/postinstall']);
-          });
+          this.router.navigate(['/pages/postinstall']); // primero navego al post
+          // luego cambio la propiedad sino me filtra el guard          
         });
       }
 
@@ -146,64 +142,8 @@ export class AppComponent {
     return matchTest.join(' ');
   }
 
-  // do not work
-  // notifyMe() {
-  //   console.log('requesting notifications permission');
-  //   if (!('Notification' in window)) {
-  //     console.log('no notifications')
-  //     // Check if the browser supports notifications
-  //     alert('This browser does not support desktop notification. sorry');
-  //   } else if (Notification.permission === 'granted') {
-  //     // Check whether notification permissions have already been granted;
-  //     // if so, create a notification
-  //     console.log('notifications granted')
-  //     // const notification = new Notification('Hi there!');
-  //     // this.notifications.subscribeToFCM();
-  //   } else if (Notification.permission !== 'denied') {
-  //     // We need to ask the user for permission
-  //     console.log('ask for permission')
-  //     Notification.requestPermission().then((permission) => {
-  //       // If the user accepts, let's create a notification
-  //       if (permission === 'granted') {
-  //         const notification = new Notification('Thank you!');
-  //         // …
-  //       }
-  //     });
-  //   }else{
-  //     console.log('shit happens')
-  //   }
-  // }
 
-  notifyMe2() {
-    if (Notification.permission === 'default') {
-      return Notification.requestPermission().then((permission) => {
-        console.log(permission); // "granted", "default", "blocked"
 
-        // If the user accepts
-        if (permission === 'granted') {
-          const notification = new Notification('Thank you!', {
-            body: 'Out Of Order',
-            icon: './assets/icon/favicon.png',
-          });
-          notification.onclick = () =>
-            console.log('user gran permission for notifications');
-          return true;
-        }
-        // If the user clicks away or clicks "Block"
-        return false;
-      });
-    } else if (Notification.permission === 'denied') {
-      // if the permissions are blocked, we cannot open the option - the user must do it manually
-      window.confirm(
-        'Your browser is blocking notifications. Change your notification preferences.'
-      );
-      return false;
-    } else {
-      // hence permission is already "granted"
-      console.log('notifications already granted')
-      return true;
-    }
-  }
 
   update() {
     console.log('checking for updates...');

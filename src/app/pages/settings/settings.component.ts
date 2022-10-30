@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { StorageService } from 'src/app/services/localstorage.service';
+import { NotificationsService } from 'src/app/services/notifications.service';
 
 @Component({
   selector: 'app-settings',
@@ -8,15 +9,15 @@ import { StorageService } from 'src/app/services/localstorage.service';
 })
 export class SettingsComponent implements OnInit {
 
-  notifications ;
+  settings ;
   
 
-  constructor(private store:StorageService) { }
+  constructor(private store:StorageService,private notifications:NotificationsService) { }
 
   ngOnInit() {
     this.store.get('store').then((store) => {
       if(store?.notifications){
-        this.notifications = store.notifications
+        this.settings = store.notifications
       }
     });
   }
@@ -28,9 +29,11 @@ export class SettingsComponent implements OnInit {
           ...store,
           notifications: event.detail.value
         });                        
+
+        this.notifications.subscribeToFCM(event.detail.value);
       });
 
-      console.log(this.notifications)
+      console.log(this.settings)
   }
 
 }

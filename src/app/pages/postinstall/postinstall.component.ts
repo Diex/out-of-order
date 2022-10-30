@@ -11,6 +11,13 @@ export class PostinstallComponent implements OnInit {
 
   ngOnInit() {
 
+    // this.store.get('store').then((store) => {
+    //   this.store.set('store', {
+    //     ...store,
+    //     displayMode: 'standalone',
+    //   });
+      
+    // });
     
   }
 
