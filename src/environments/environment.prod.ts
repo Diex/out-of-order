@@ -8,7 +8,7 @@ export const environment = {
     messagingSenderId: '880867423776',
     measurementId: 'G-YW9BKP3XLH',
     vapidKey:'BAinc6xTO7YNk0g6lJ172vqPGFqUo_1XUX9_re2TuOt2CX5MyjrlFcff3JE91H43MTerM1i-p3fkQPOnVHUqttA',
-    api: 'http://localhost:5001/outoforder-2022/us-central1/api/v1'
+    api: 'https://us-central1-outoforder-2022.cloudfunctions.net/api/v1'
   },
   production: true
 };
