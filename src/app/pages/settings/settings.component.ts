@@ -29,7 +29,12 @@ export class SettingsComponent implements OnInit {
           ...store,
           notifications: event.detail.value
         });                        
-
+        
+        if(event.detail.value === 'null') {
+          // TODO unsuscribe
+          this.notifications.unsuscribe();  
+          return;
+        }
         this.notifications.subscribeToFCM(event.detail.value);
       });
 
