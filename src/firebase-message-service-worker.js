@@ -42,6 +42,7 @@
 messaging.onBackgroundMessage(function(payload) {
   console.log('[firebase-messaging-sw.js] Received background message ', payload);
   // Customize notification here
+  channel.postMessage({title: 'Hello from SW'});
   const notificationTitle = payload.notification.title;
   const notificationOptions = {
     body: payload.notification.body,
@@ -52,11 +53,16 @@ messaging.onBackgroundMessage(function(payload) {
   //   notificationOptions);
 });
 
+// From service-worker.js:
+const channel = new BroadcastChannel('sw-messages');
+
+
 self.addEventListener('notificationclick', (event) => {
   console.log("This is custom service worker notificationclick method.");
   console.log('Notification details: ', event.notification);
    // Close the notification popout
    event.notification.close();
+   
    // Get all the Window clients
    event.waitUntil(clients.matchAll({ type: 'window' }).then((clientsArr) => {
      // If a Window tab matching the targeted URL already exists, focus that;

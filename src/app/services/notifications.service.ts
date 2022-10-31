@@ -21,12 +21,21 @@ export class NotificationsService {
     private http: HttpClient
   ) {
     this.api = environment.firebase.api;
+    this.communications();
   }
 
   topics = ['daily', 'twice', 'three', 'random'];
 
+  public communications() {
+    // From your client pages:
+    const channel = new BroadcastChannel('sw-messages');
+    channel.addEventListener('message', (event) => {
+      console.log('Received', event.data);
+    });
+  }
+
   public unsuscribe() {
-    console.log('unsubscribe')
+    
     // https://firebase.google.com/docs/reference/js/messaging_
     this.token = from(
       navigator.serviceWorker.ready
@@ -35,16 +44,20 @@ export class NotificationsService {
             serviceWorkerRegistration,
             vapidKey: environment.firebase.vapidKey,
           })
-        ).catch(async (error) => {
+        )
+        .catch(async (error) => {
           console.log(error);
         })
-    ).pipe(
+    )
+      .pipe(
         switchMap((token) => {
+          console.log('FCM unsuscribed:', { token });
           return this.http
             .post(this.api + '/topics/unsubscribeAll', { token })
             .pipe(map((res) => console.log(res)));
         })
-      ).subscribe();
+      )
+      .subscribe();
   }
 
   public subscribeToFCM(topicId) {
@@ -82,7 +95,8 @@ export class NotificationsService {
     // https://firebase.google.com/docs/cloud-messaging/js/receive
     this.message = new Observable((sub) =>
       onMessage(this.afMessaging, (it) => sub.next(it))
-    ).pipe(
+    )
+      .pipe(
         map((message) => {
           console.log('onMessage:', message);
           this.displayToast(message['notification']);
