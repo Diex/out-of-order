@@ -24,32 +24,32 @@ const routes: Routes = [
   {
     path: 'onboard',
     component: OnboardComponent,
-    canActivate: [BrowserGuard]
+    // canActivate: [BrowserGuard]
   },
   {
     path: 'install',
     component: InstallComponent,
-    canActivate: [BrowserGuard]
+    // canActivate: [BrowserGuard]
   },
   {
     path: 'postinstall',
     component: PostinstallComponent,
-    canActivate: [BrowserGuard]
+    // canActivate: [BrowserGuard]
   },
   {
     path: 'home',
     component: HomeComponent,
-    canActivate: [InstalledGuard]
+    // canActivate: [InstalledGuard]
   },
   {
     path: 'menu',
     component: MenuComponent,
-    canActivate: [InstalledGuard]
+    // canActivate: [InstalledGuard]
   },
   {
     path: 'ongoing',
     component: OngoingComponent,
-    canActivate: [InstalledGuard]
+    // canActivate: [InstalledGuard]
   },
   {
     path: 'about',
@@ -69,7 +69,7 @@ const routes: Routes = [
   {
     path: 'settings',
     component: SettingsComponent,
-    canActivate: [InstalledGuard]
+    // canActivate: [InstalledGuard]
   },
   {
     path: '404',

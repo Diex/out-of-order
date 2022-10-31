@@ -26,6 +26,7 @@ export class NotificationsService {
 
   topics = ['daily', 'twice', 'three', 'random'];
 
+  // https://stackoverflow.com/questions/42127148/service-worker-communicate-to-clients
   public communications() {
     // From your client pages:
     const channel = new BroadcastChannel('sw-messages');
