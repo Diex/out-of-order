@@ -2,9 +2,9 @@ import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { getToken, Messaging, onMessage } from "@angular/fire/messaging";
 import { Router } from "@angular/router";
-import { ModalController, ToastController } from "@ionic/angular";
-import { from, Observable } from "rxjs";
-import { map, share, switchMap, tap } from "rxjs/operators";
+import { ToastController } from "@ionic/angular";
+import { concat, from, Observable } from "rxjs";
+import { map, switchMap } from "rxjs/operators";
 import { environment } from "src/environments/environment";
 // import { NotificationsBlockedComponent } from "../modals/notifications-blocked/notifications-blocked.component";
 
@@ -19,7 +19,6 @@ export class NotificationsService {
     private afMessaging: Messaging,
     public toastController: ToastController,
     private router: Router,
-    private modalCtrl: ModalController,
     private http: HttpClient
   ) {
     this.api = environment.firebase.api;
@@ -48,16 +47,13 @@ export class NotificationsService {
         })
     )
       .pipe(
-        switchMap((token) => {
-          console.log("FCM", { token })          
-          return this.http.post(this.api+'/topics/subscribe', 
-            {token, topic:this.topics[topicId]}).pipe(
-            map(res => console.log(res))
-          )
-        }),
-        share(),
-
-      )
+        switchMap(token => {
+          console.log("FCM", { token, topic: this.topics[topicId] })          
+          return concat(
+            this.http.post(this.api+'/topics/unsubscribeAll', {token}).pipe(map(res => console.log(res))),
+            this.http.post(this.api+'/topics/subscribe', {token, topic:this.topics[topicId]}).pipe(map(res => console.log(res)))
+            )          
+        }))
       .subscribe();
 
 

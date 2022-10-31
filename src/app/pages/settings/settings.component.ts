@@ -23,7 +23,7 @@ export class SettingsComponent implements OnInit {
   }
 
   updateNotifications(event){
-      console.log(event.detail.value)
+      // console.log(event.detail.value)
       this.store.get('store').then((store) => {
         this.store.set('store', {
           ...store,
@@ -33,7 +33,7 @@ export class SettingsComponent implements OnInit {
         this.notifications.subscribeToFCM(event.detail.value);
       });
 
-      console.log(this.settings)
+      // console.log(this.settings)
   }
 
 }
