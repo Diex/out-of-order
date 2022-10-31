@@ -26,6 +26,7 @@ export class NotificationsService {
   topics = ['daily', 'twice', 'three', 'random'];
 
   public unsuscribe() {
+    console.log('unsubscribe')
     // https://firebase.google.com/docs/reference/js/messaging_
     this.token = from(
       navigator.serviceWorker.ready
@@ -34,20 +35,18 @@ export class NotificationsService {
             serviceWorkerRegistration,
             vapidKey: environment.firebase.vapidKey,
           })
-        )
-        .catch(async (error) => {
+        ).catch(async (error) => {
           console.log(error);
         })
-    )
-      .pipe(
-        map((token) => {
-          this.http
+    ).pipe(
+        switchMap((token) => {
+          return this.http
             .post(this.api + '/topics/unsubscribeAll', { token })
             .pipe(map((res) => console.log(res)));
         })
-      )
-      .subscribe();
+      ).subscribe();
   }
+
   public subscribeToFCM(topicId) {
     // https://firebase.google.com/docs/reference/js/messaging_
     this.token = from(

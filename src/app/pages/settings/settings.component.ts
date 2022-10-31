@@ -23,15 +23,12 @@ export class SettingsComponent implements OnInit {
   }
 
   updateNotifications(event){
-      // console.log(event.detail.value)
       this.store.get('store').then((store) => {
         this.store.set('store', {
           ...store,
           notifications: event.detail.value
         });                        
-        
         if(event.detail.value === 'null') {
-          // TODO unsuscribe
           this.notifications.unsuscribe();  
           return;
         }
