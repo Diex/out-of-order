@@ -2,10 +2,13 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { BrowserGuard } from '../guards/browser.guard';
 import { InstalledGuard } from '../guards/installed.guard';
+import { AboutComponent } from './about/about.component';
 
 import { HomeComponent } from './home/home.component';
 import { InstallComponent } from './install/install.component';
+import { InviteComponent } from './invite/invite.component';
 import { MenuComponent } from './menu/menu.component';
+import { MystuffComponent } from './mystuff/mystuff.component';
 import { NotfoundComponent } from './notfound/notfound.component';
 import { OnboardComponent } from './onboard/onboard.component';
 import { OngoingComponent } from './ongoing/ongoing.component';
@@ -47,6 +50,21 @@ const routes: Routes = [
     path: 'ongoing',
     component: OngoingComponent,
     canActivate: [InstalledGuard]
+  },
+  {
+    path: 'about',
+    component: AboutComponent,
+    // canActivate: [InstalledGuard]
+  },
+  {
+    path: 'invite',
+    component: InviteComponent,
+    // canActivate: [InstalledGuard]
+  },
+  {
+    path: 'mystuff',
+    component: MystuffComponent,
+    // canActivate: [InstalledGuard]
   },
   {
     path: 'settings',

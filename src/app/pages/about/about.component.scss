@@ -9,9 +9,16 @@ h1 {
     font-weight: 500;
     margin-top: 0;
     margin-bottom: 0;
-    line-height: 13vh;
-    padding-left: 7px;
+    // line-height: 13vh;
+    // padding-left: 7px;
     // color: var(--ion-color-primary);
+}
+
+ion-text {
+    font-family: "Pixels";
+    font-size: 1vh;
+    margin-top: 2vh;
+    margin-left: 2vw;
 }
 
 a {

@@ -10,5 +10,8 @@ export class MenuComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {}
-
+  gotoWeb(){
+    console.log('GOTO WEB')
+    
+  }
 }

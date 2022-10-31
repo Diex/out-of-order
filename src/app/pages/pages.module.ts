@@ -11,6 +11,9 @@ import { OnboardComponent } from './onboard/onboard.component';
 import { InstallComponent } from './install/install.component';
 import { PostinstallComponent } from './postinstall/postinstall.component';
 import { FormsModule } from '@angular/forms';
+import { AboutComponent } from './about/about.component';
+import { InviteComponent } from './invite/invite.component';
+import { MystuffComponent } from './mystuff/mystuff.component';
 
 
 
@@ -23,7 +26,10 @@ import { FormsModule } from '@angular/forms';
     NotfoundComponent,
     OnboardComponent,
     InstallComponent,
-    PostinstallComponent
+    PostinstallComponent,
+    AboutComponent,
+    InviteComponent,
+    MystuffComponent
   ],
   imports: [
     CommonModule,
