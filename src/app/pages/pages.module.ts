@@ -15,6 +15,7 @@ import { AboutComponent } from './about/about.component';
 import { InviteComponent } from './invite/invite.component';
 import { MystuffComponent } from './mystuff/mystuff.component';
 import { NotesComponent } from './notes/notes.component';
+import { StuffDatePipe } from '../pipes/stuff-date.pipe';
 
 
 
@@ -31,13 +32,15 @@ import { NotesComponent } from './notes/notes.component';
     AboutComponent,
     InviteComponent,
     MystuffComponent,
-    NotesComponent
+    NotesComponent,
+    StuffDatePipe
   ],
   imports: [
     CommonModule,
     IonicModule.forRoot(),
     PagesRoutingModule,
-    FormsModule
-  ]
+    FormsModule,
+  ],
+
 })
 export class PagesModule { }

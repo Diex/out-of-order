@@ -13,8 +13,20 @@ export class MissionsService {
   // twice = [2, 5]
 
   current:BehaviorSubject<any> = new BehaviorSubject({});
+  saved:BehaviorSubject<any> = new BehaviorSubject([]);
 
   constructor(private store:StorageService) {    
+
+    this.store.get('saved').then(saved => {
+      console.log('saved')
+      if(!saved) {
+        this.saved.next([]);
+      }else{
+        this.saved.next(saved);
+      }
+    })
+
+
    }
 
   public async next(){    
@@ -49,7 +61,6 @@ export class MissionsService {
           this.current.next(mission);
         }        
       }
-
       
     }).catch( () => {
       console.log('something went wrong')      
@@ -107,11 +118,8 @@ export class MissionsService {
         return;
       }
       saved.push(this.current.value);
-      
-      
-      
-      this.store.set('saved', saved)
-
+      this.store.set('saved', saved) // updates storage
+      this.saved.next(saved); // updates subscribers
       }
     )
   }
