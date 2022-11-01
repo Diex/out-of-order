@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { MissionsService } from 'src/app/services/missions.service';
 
 @Component({
   selector: 'app-ongoing',
@@ -7,8 +8,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class OngoingComponent implements OnInit {
 
-  constructor() { }
+  current;
 
-  ngOnInit() {}
+  constructor(public missions:MissionsService) { }
+
+  ngOnInit() {
+    this.missions.next();
+  }
+
+  setCurrentMission(){
+
+    
+  }
 
 }

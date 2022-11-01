@@ -34,8 +34,6 @@ export class SettingsComponent implements OnInit {
         }
         this.notifications.subscribeToFCM(event.detail.value);
       });
-
-      // console.log(this.settings)
   }
 
 }
