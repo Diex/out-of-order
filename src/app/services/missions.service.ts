@@ -94,4 +94,26 @@ export class MissionsService {
       // console.log(m1, m2)
       return m1.date() === m2.date() && m1.month() === m2.month()    
   }
+  
+  save(){
+    
+    this.store.get('saved').then(
+      
+      (saved:Array<any>) => {
+      if(!saved) saved = [];
+
+      if(saved.findIndex(mission => mission.id === this.current.value.id) != -1) {
+        window.alert('already saved');
+        return;
+      }
+      saved.push(this.current.value);
+      
+      
+      
+      this.store.set('saved', saved)
+
+      }
+    )
+  }
+
 }

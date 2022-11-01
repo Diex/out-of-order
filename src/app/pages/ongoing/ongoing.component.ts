@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { BehaviorSubject } from 'rxjs';
+import { StorageService } from 'src/app/services/localstorage.service';
 import { MissionsService } from 'src/app/services/missions.service';
 
 @Component({
@@ -8,17 +10,20 @@ import { MissionsService } from 'src/app/services/missions.service';
 })
 export class OngoingComponent implements OnInit {
 
-  current;
+  // current:BehaviorSubject<any>;
 
-  constructor(public missions:MissionsService) { }
+  constructor(public missions:MissionsService, private store:StorageService) { }
 
   ngOnInit() {
     this.missions.next();
   }
 
   setCurrentMission(){
+ 
+  }
 
-    
+  save(){
+    this.missions.save();
   }
 
 }

@@ -5,7 +5,7 @@
   <ion-toolbar>
     <ion-button slot="end" fill="clear" id="note" style="background-size:cover" [routerLink]="['/pages/notes']"></ion-button>
     <ion-button slot="end" fill="clear" id="share" style="background-size:cover" [routerLink]="['/pages/invite']"></ion-button>
-    <ion-button slot="end" fill="clear" id="save" style="background-size:cover" [routerLink]="['/pages/mystuff']"></ion-button>
+    <ion-button slot="end" fill="clear" id="save" style="background-size:cover" (click)="save()"></ion-button>
     <ion-button slot="end" fill="clear" id="close" style="background-size:cover" [routerLink]="['/pages/home']"></ion-button>
   </ion-toolbar>
 </ion-footer>

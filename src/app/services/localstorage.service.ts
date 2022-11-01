@@ -19,7 +19,7 @@ export class StorageService {
         const storage = this.storage.create().then(
           storage => {
             this._storage = storage;    
-            console.log('storage:' , this._storage);
+            console.log('storage:' , this._storage);            
             resolve(true);
           }
         );
@@ -38,4 +38,6 @@ export class StorageService {
   public get(key: string) {
     return this._storage?.get(key);
   }
+
+
 }
