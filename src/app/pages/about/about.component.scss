@@ -1,7 +1,27 @@
+ion-header {
+    font-family: "Pixels";
+    font-size: 10vh;
+    font-weight: 500;
+    margin-top: 0;
+    margin-bottom: 0;
+}
+.header-md::after {
+    height: 0;
+}
+ion-label{
+    padding-left: 1vh;
+
+}
+
 .default {
     font-family: "Pixels";
     margin-top: 2vh;
     margin-left: 2vw;
+}
+
+p {
+    font-size: 2vh;
+    padding-left: 2vh;
 }
 
 h1 {
@@ -16,7 +36,7 @@ h1 {
 
 ion-text {
     font-family: "Pixels";
-    font-size: 1vh;
+    font-size: 2vh;
     margin-top: 2vh;
     margin-left: 2vw;
 }
