@@ -14,4 +14,43 @@ p {
     padding-left: 7px;
     // color: var(--ion-color-primary);
 }
+
+ion-toolbar {
+    --border-color: white;
+    --border-width: 0;
+    padding-bottom: 1vh !important;
+}
+ion-button{
+    --ripple-color: white;
+}
+
+.footer-md::before {
+    height: 0px;
+}
+
+#save {
+    background-image: url('./../../../assets/icons/save.png');
+    height: 8vh;
+    width: 8vh;
+  }
   
+  #share {
+    background-image: url('./../../../assets/icons/share.png');
+    height: 8vh;
+    width: 8vh;
+  }
+
+  #note {
+    background-image: url('./../../../assets/icons/note.png');
+    height: 8vh;
+    width: 8vh;
+  }
+
+  #close {
+    background-image: url('./../../../assets/icons/close.png');
+    height: 8vh;
+    width: 8vh;
+  }
+
+
+

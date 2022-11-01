@@ -45,7 +45,7 @@ export class MissionsService {
         if(!this.isToday(new Date(mission.shown)) && this.canUpdate){
           this.updateMission(mission);
         }else{
-          console.log('cant update same day');
+          console.log('cant update');
           this.current.next(mission);
         }        
       }

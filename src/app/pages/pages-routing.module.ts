@@ -9,6 +9,7 @@ import { InstallComponent } from './install/install.component';
 import { InviteComponent } from './invite/invite.component';
 import { MenuComponent } from './menu/menu.component';
 import { MystuffComponent } from './mystuff/mystuff.component';
+import { NotesComponent } from './notes/notes.component';
 import { NotfoundComponent } from './notfound/notfound.component';
 import { OnboardComponent } from './onboard/onboard.component';
 import { OngoingComponent } from './ongoing/ongoing.component';
@@ -64,6 +65,11 @@ const routes: Routes = [
   {
     path: 'mystuff',
     component: MystuffComponent,
+    // canActivate: [InstalledGuard]
+  },
+  {
+    path: 'notes',
+    component: NotesComponent,
     // canActivate: [InstalledGuard]
   },
   {

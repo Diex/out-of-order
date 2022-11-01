@@ -1,5 +1,13 @@
 <ion-content (click)="setCurrentMission()" class="ion-padding">
-  <p class="text">{{(this.missions.current | async).text | uppercase}}</p>
+  <p class="text">{{(this.missions.current | async).text | uppercase}}</p>  
 </ion-content>
+<ion-footer>
+  <ion-toolbar>
+    <ion-button slot="end" fill="clear" id="note" style="background-size:cover" [routerLink]="['/pages/notes']"></ion-button>
+    <ion-button slot="end" fill="clear" id="share" style="background-size:cover" [routerLink]="['/pages/invite']"></ion-button>
+    <ion-button slot="end" fill="clear" id="save" style="background-size:cover" [routerLink]="['/pages/mystuff']"></ion-button>
+    <ion-button slot="end" fill="clear" id="close" style="background-size:cover" [routerLink]="['/pages/home']"></ion-button>
+  </ion-toolbar>
+</ion-footer>
 
 

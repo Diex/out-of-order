@@ -14,6 +14,7 @@ import { FormsModule } from '@angular/forms';
 import { AboutComponent } from './about/about.component';
 import { InviteComponent } from './invite/invite.component';
 import { MystuffComponent } from './mystuff/mystuff.component';
+import { NotesComponent } from './notes/notes.component';
 
 
 
@@ -29,7 +30,8 @@ import { MystuffComponent } from './mystuff/mystuff.component';
     PostinstallComponent,
     AboutComponent,
     InviteComponent,
-    MystuffComponent
+    MystuffComponent,
+    NotesComponent
   ],
   imports: [
     CommonModule,
