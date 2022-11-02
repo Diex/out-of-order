@@ -61,6 +61,7 @@ export class OngoingComponent implements OnInit {
       console.log('MDN shared successfully')
     } catch (err) {
       console.error(`Error: ${err}`);
+      window.alert(`Can't share on this platform`);
     }
   }
 
