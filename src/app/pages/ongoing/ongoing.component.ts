@@ -13,7 +13,8 @@ import { MissionsService } from 'src/app/services/missions.service';
   styleUrls: ['./ongoing.component.scss'],
 })
 export class OngoingComponent implements OnInit {
-
+  @ViewChild(IonModal) modal: IonModal;
+  noteText;
   current:BehaviorSubject<any> = new BehaviorSubject({});
   unsuscribe:Subject<any> = new Subject();
   edit = false;
@@ -48,7 +49,7 @@ export class OngoingComponent implements OnInit {
   }
 
   note(){
-    
+    this.noteText = this.current.value.note ? this.current.value.note : '';
   }
 
   async share(){
@@ -68,23 +69,25 @@ export class OngoingComponent implements OnInit {
     }
   }
 
-  @ViewChild(IonModal) modal: IonModal;
-
-  message = 'This modal example uses triggers to automatically open a modal when the button is clicked.';
+  
+  
   name: string;
 
   cancel() {
     this.modal.dismiss(null, 'cancel');
+
   }
 
   confirm() {
     this.modal.dismiss(this.name, 'confirm');
+    console.log(this.noteText);
+    this.missions.addNote(this.noteText, this.current.value.id);
   }
 
   onWillDismiss(event: Event) {
     const ev = event as CustomEvent<OverlayEventDetail<string>>;
     if (ev.detail.role === 'confirm') {
-      this.message = `Hello, ${ev.detail.data}!`;
+      
     }
   }
 

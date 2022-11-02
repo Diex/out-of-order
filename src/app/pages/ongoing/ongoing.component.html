@@ -13,7 +13,7 @@
         </ion-toolbar>
       </ion-header>
       <ion-content>
-        <ion-textarea class="custom-textarea" autoGrow="true" placeholder="Enter text, leave the textarea, come back, and type to clear"
+        <ion-textarea [(ngModel)]="noteText" class="custom-textarea" autoGrow="true" placeholder="Enter text, leave a note, come back"
           [clearOnEdit]="true"></ion-textarea>
       </ion-content>
     </ng-template>
