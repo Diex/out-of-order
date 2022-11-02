@@ -37,7 +37,7 @@ export class MissionsService {
       let date: Date = new Date();
       const m =  moment(date); // Thursday Feb 2015
       const dow = m.day().toLocaleString();
-      console.log(store)    
+      // console.log(store)    
       this.canUpdate = this.matchDay(store.notifications, dow );
       console.log(this.canUpdate)
     }).catch( () => {
@@ -55,6 +55,7 @@ export class MissionsService {
         this.createMission();
       }else{                
         if(!this.isToday(new Date(mission.shown)) && this.canUpdate){
+          // if(true){ // engania pichanga
           this.updateMission(mission);
         }else{
           console.log('cant update');

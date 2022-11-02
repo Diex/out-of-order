@@ -48,10 +48,15 @@ const routes: Routes = [
     // canActivate: [InstalledGuard]
   },
   {
-    path: 'ongoing',
+    path: 'ongoing/:id',
     component: OngoingComponent,
     // canActivate: [InstalledGuard]
   },
+  // {
+  //   path: 'ongoing',
+  //   component: OngoingComponent,
+  //   // canActivate: [InstalledGuard]
+  // },
   {
     path: 'about',
     component: AboutComponent,

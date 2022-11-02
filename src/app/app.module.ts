@@ -1,6 +1,6 @@
 import { APP_INITIALIZER, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { RouteReuseStrategy } from '@angular/router';
+import { RouteReuseStrategy, RouterModule } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
 import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
 
@@ -27,6 +27,7 @@ import { provideStorage,getStorage } from '@angular/fire/storage';
     BrowserModule,
     HttpClientModule,
     IonicModule.forRoot(),
+   
     AppRoutingModule,
     // ServiceWorkerModule.register('ngsw-worker.js', {
     ServiceWorkerModule.register('app-service-worker.js', {
