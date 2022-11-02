@@ -19,11 +19,9 @@ export class OngoingComponent implements OnInit {
   //https://appdividend.com/2020/07/14/angular-route-params-how-to-pass-route-params-in-angular/
   ngOnInit() {
     this.route.params
-      .subscribe(params => {
-        console.log(params); 
+      .subscribe(params => {        
         if(params.id && params.id !== 'next'){
-          let index = this.missions.saved.value.findIndex(mission => mission.id == params.id);
-          console.log(index)
+          let index = this.missions.saved.value.findIndex(mission => mission.id == params.id);        
           this.current.next(this.missions.saved.value[index]);
         }else{
           this.missions.next();
@@ -36,7 +34,6 @@ export class OngoingComponent implements OnInit {
         }
       }
     );
-
     
   }
 
@@ -44,12 +41,27 @@ export class OngoingComponent implements OnInit {
     this.unsuscribe.next();
   }
 
-  setCurrentMission(){
- 
-  }
-
   save(){
     this.missions.save();
+  }
+
+  async share(){
+
+    // const resultPara = document.querySelector('.result');
+
+
+    const shareData = {
+      title: 'Out Of Order',
+      text: this.current.value.text,
+      url: 'https://outoforder-2022.web.app'
+    }
+
+    try {
+      await navigator.share(shareData)
+      console.log('MDN shared successfully')
+    } catch (err) {
+      console.error(`Error: ${err}`);
+    }
   }
 
 }
