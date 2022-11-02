@@ -1,13 +1,31 @@
 <ion-content class="ion-padding">
-  <p class="text">{{( current| async).text | uppercase}}</p>  
+  <p class="text">{{( current| async).text | uppercase}}</p>
+  <ion-modal trigger="note" (willDismiss)="onWillDismiss($event)">
+    <ng-template>
+      <ion-header>
+        <ion-toolbar>
+          <ion-buttons slot="start">
+            <ion-button (click)="cancel()">Cancel</ion-button>
+          </ion-buttons>
+          <ion-buttons slot="end">
+            <ion-button (click)="confirm()" [strong]="true">Confirm</ion-button>
+          </ion-buttons>
+        </ion-toolbar>
+      </ion-header>
+      <ion-content>
+        <ion-textarea class="custom-textarea" autoGrow="true" placeholder="Enter text, leave the textarea, come back, and type to clear"
+          [clearOnEdit]="true"></ion-textarea>
+      </ion-content>
+    </ng-template>
+  </ion-modal>
 </ion-content>
+
 <ion-footer>
   <ion-toolbar>
-    <ion-button slot="end" fill="clear" id="note" style="background-size:cover" [routerLink]="['/pages/notes']"></ion-button>
+    <ion-button slot="end" fill="clear" id="note" style="background-size:cover" (click)="note()"></ion-button>
     <ion-button slot="end" fill="clear" id="share" style="background-size:cover" (click)="share()"></ion-button>
     <ion-button slot="end" fill="clear" id="save" style="background-size:cover" (click)="save()"></ion-button>
-    <ion-button slot="end" fill="clear" id="close" style="background-size:cover" [routerLink]="['/pages/home']"></ion-button>
+    <ion-button slot="end" fill="clear" id="close" style="background-size:cover" [routerLink]="['/pages/home']">
+    </ion-button>
   </ion-toolbar>
 </ion-footer>
-
-

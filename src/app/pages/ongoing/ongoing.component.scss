@@ -20,9 +20,29 @@ ion-toolbar {
     --border-width: 0;
     padding-bottom: 1vh !important;
 }
-ion-button{
-    --ripple-color: white;
+ion-textarea.custom-textarea {
+  font-family: "Pixels";
+  font-size: 5vh;
+  --background: #ffffff;
+  --color: rgb(0, 0, 0);
+  --padding-end: 1vh;
+  --padding-start: 1vh;
+  --placeholder-color: rgb(137, 137, 137);
+  --placeholder-opacity: 0.8;
+  height: 100%;
 }
+
+ion-input {
+  font-family: "Pixels";
+  color: black;
+  margin-top: 2vh;
+  margin-left: 2vw;
+  font-size: 6vh;
+  font-weight: 500;
+
+
+}
+
 
 .footer-md::before {
     height: 0px;

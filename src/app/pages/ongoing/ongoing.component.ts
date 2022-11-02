@@ -1,5 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { IonModal, ModalController } from '@ionic/angular';
+import { OverlayEventDetail } from '@ionic/core';
 import { BehaviorSubject, Subject } from 'rxjs';
 import { map, takeUntil } from 'rxjs/operators';
 import { StorageService } from 'src/app/services/localstorage.service';
@@ -14,8 +16,8 @@ export class OngoingComponent implements OnInit {
 
   current:BehaviorSubject<any> = new BehaviorSubject({});
   unsuscribe:Subject<any> = new Subject();
-
-  constructor(public missions:MissionsService, private route: ActivatedRoute) { }
+  edit = false;
+  constructor(public missions:MissionsService, private route: ActivatedRoute, private ctrl:ModalController) { }
   //https://appdividend.com/2020/07/14/angular-route-params-how-to-pass-route-params-in-angular/
   ngOnInit() {
     this.route.params
@@ -45,10 +47,11 @@ export class OngoingComponent implements OnInit {
     this.missions.save();
   }
 
+  note(){
+    
+  }
+
   async share(){
-
-    // const resultPara = document.querySelector('.result');
-
 
     const shareData = {
       title: 'Out Of Order',
@@ -62,6 +65,26 @@ export class OngoingComponent implements OnInit {
     } catch (err) {
       console.error(`Error: ${err}`);
       window.alert(`Can't share on this platform`);
+    }
+  }
+
+  @ViewChild(IonModal) modal: IonModal;
+
+  message = 'This modal example uses triggers to automatically open a modal when the button is clicked.';
+  name: string;
+
+  cancel() {
+    this.modal.dismiss(null, 'cancel');
+  }
+
+  confirm() {
+    this.modal.dismiss(this.name, 'confirm');
+  }
+
+  onWillDismiss(event: Event) {
+    const ev = event as CustomEvent<OverlayEventDetail<string>>;
+    if (ev.detail.role === 'confirm') {
+      this.message = `Hello, ${ev.detail.data}!`;
     }
   }
 
