@@ -3,6 +3,7 @@ import { StorageService } from './localstorage.service';
 import * as missions from './../../assets/misions.json';
 import { BehaviorSubject } from 'rxjs';
 import * as moment from 'moment';
+import { ToastController } from '@ionic/angular';
 
 @Injectable({
   providedIn: 'root',
@@ -15,7 +16,7 @@ export class MissionsService {
   current: BehaviorSubject<any> = new BehaviorSubject({});
   saved: BehaviorSubject<any> = new BehaviorSubject([]);
 
-  constructor(private store: StorageService) {
+  constructor(private store: StorageService, private toast:ToastController) {
     this.store.get('saved').then((saved) => {
       console.log('saved');
       if (!saved) {
@@ -62,10 +63,6 @@ export class MissionsService {
       .catch(() => {
         console.log('something went wrong');
       });
-
-    // console.log(Object.keys(missions))
-    // console.log(this.id, Object.keys(missions).length)
-    // this.updateMission();
   }
 
   createMission() {
@@ -99,14 +96,12 @@ export class MissionsService {
   isToday(date) {
     let m1 = moment(date);
     let m2 = moment(new Date());
-    // console.log(m1, m2)
     return m1.date() === m2.date() && m1.month() === m2.month();
   }
 
   save() {
     this.store.get('saved').then((saved: Array<any>) => {
       if (!saved) saved = [];
-
       if (
         saved.findIndex((mission) => mission.id === this.current.value.id) != -1
       ) {
@@ -119,12 +114,31 @@ export class MissionsService {
     });
   }
 
+  isSaved(id): boolean {
+    let result = false;
+    this.store.get('saved').then((saved: Array<any>) => {
+      console.log(saved);
+      if (!saved) {
+        result = false;
+        return;
+      }
+
+      let index = saved.findIndex((mission) => mission.id === id);
+      if (index != -1) {
+        console.log(saved);
+        result = true;
+        return;
+      }
+
+      result = false;
+    });
+    return result;
+  }
+
   addNote(text, id) {
     this.store.get('saved').then((saved: Array<any>) => {
       if (!saved) return;
-      let index = saved.findIndex(
-        (mission) => mission.id === id
-      );
+      let index = saved.findIndex((mission) => mission.id === id);
       console.log(index);
       if (index != -1) {
         // window.alert('already saved');
@@ -134,5 +148,15 @@ export class MissionsService {
         this.saved.next(saved); // updates subscribers
       }
     });
+  }
+
+  async presentToast(text) {
+    const toast = await this.toast.create({
+      message: text,
+      duration: 1500,
+      position: 'bottom'
+    });
+
+    await toast.present();
   }
 }

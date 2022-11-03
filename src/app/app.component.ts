@@ -46,7 +46,7 @@ export class AppComponent {
         // already installed
         console.log('check for notifications');
         // check for notifications
-        this.notifications.notifyMe2();
+        // this.notifications.notifyMe2();
         this.router.navigate(['/pages/home']);
       } else {
         // https://web.dev/customize-install/#show_the_prompt
@@ -179,7 +179,7 @@ export class AppComponent {
 
   async presentToast() {
     const toast = await this.toast.create({
-      message: 'Downloading update. Please wait...',
+      message: 'Updating. Wait...',
       duration: 1500,
       position: 'bottom'
     });

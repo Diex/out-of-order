@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { IonModal, ModalController } from '@ionic/angular';
+import { IonModal, ModalController, ToastController } from '@ionic/angular';
 import { OverlayEventDetail } from '@ionic/core';
 import { BehaviorSubject, Subject } from 'rxjs';
 import { map, takeUntil } from 'rxjs/operators';
@@ -18,7 +18,11 @@ export class OngoingComponent implements OnInit {
   current:BehaviorSubject<any> = new BehaviorSubject({});
   unsuscribe:Subject<any> = new Subject();
   edit = false;
-  constructor(public missions:MissionsService, private route: ActivatedRoute, private ctrl:ModalController) { }
+  constructor(
+    public missions:MissionsService, 
+    private route: ActivatedRoute, 
+    private ctrl:ModalController,
+     ) { }
   //https://appdividend.com/2020/07/14/angular-route-params-how-to-pass-route-params-in-angular/
   ngOnInit() {
     this.route.params
@@ -46,6 +50,7 @@ export class OngoingComponent implements OnInit {
 
   save(){
     this.missions.save();
+    // this.presentToast('Saved...');
   }
 
   note(){
@@ -75,10 +80,14 @@ export class OngoingComponent implements OnInit {
 
   cancel() {
     this.modal.dismiss(null, 'cancel');
-
   }
 
   confirm() {
+    let saved =  this.missions.isSaved(this.current.value.id);
+    console.log(saved)
+    if(!saved) {
+      console.log('not saved')      
+    }
     this.modal.dismiss(this.name, 'confirm');
     console.log(this.noteText);
     this.missions.addNote(this.noteText, this.current.value.id);
@@ -90,5 +99,6 @@ export class OngoingComponent implements OnInit {
       
     }
   }
+
 
 }
