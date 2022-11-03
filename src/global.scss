@@ -66,7 +66,10 @@ p {
 }
 
 .inner-scroll {
-  padding: 0;
+  --padding-start: 0 !important;
+  --padding-end: 0 !important;
+  --padding-top: 0 !important;
+  --padding-bottom: 0 !important;
 }
 a {
   text-decoration: underline;
@@ -74,4 +77,41 @@ a {
 
 a:visited {
   color: black;
+}
+
+
+.footer-md::before {
+  height: 0px;
+}
+
+
+ion-toolbar {
+  --border-color: white;
+  --border-width: 0;
+  padding-bottom: 1vh !important;
+}
+
+
+#save {
+  background-image: url('./../../../assets/icons/save.png');
+  height: 8vh;
+  width: 8vh;
+}
+
+#share {
+  background-image: url('./../../../assets/icons/share.png');
+  height: 8vh;
+  width: 8vh;
+}
+
+#note {
+  background-image: url('./../../../assets/icons/note.png');
+  height: 8vh;
+  width: 8vh;
+}
+
+#close {
+  background-image: url('./../../../assets/icons/close.png');
+  height: 8vh;
+  width: 8vh;
 }

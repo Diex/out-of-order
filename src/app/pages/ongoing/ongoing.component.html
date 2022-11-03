@@ -1,5 +1,6 @@
 <ion-content class="ion-padding">
-  <p class="text">{{( current| async).text | uppercase}}</p>
+  <ion-label>{{(current| async).text | uppercase}}</ion-label>
+
   <ion-modal trigger="note" (willDismiss)="onWillDismiss($event)">
     <ng-template>
       <ion-header>
