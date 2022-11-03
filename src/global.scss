@@ -16,7 +16,7 @@
 @import "~@ionic/angular/css/normalize.css";
 @import "~@ionic/angular/css/structure.css";
 @import "~@ionic/angular/css/typography.css";
-@import '~@ionic/angular/css/display.css';
+@import "~@ionic/angular/css/display.css";
 
 /* Optional CSS utils that can be commented out */
 @import "~@ionic/angular/css/padding.css";
@@ -25,40 +25,53 @@
 @import "~@ionic/angular/css/text-transformation.css";
 @import "~@ionic/angular/css/flex-utils.css";
 
-
-
-@font-face {   
-    font-family: 'Pixels';
-    src: url('/assets/fonts/neuepixelsans.ttf');
-  }
-
-  ion-content {
-    --background: #fff;
-    --background: #fff;
-    --padding-start: 1vh;
-    --padding-top: 1vh;
-    --padding-bottom: 1vh;
-    --padding-end: 1vh;
-    
+@font-face {
+  font-family: "Pixels";
+  src: url("/assets/fonts/neuepixelsans.ttf");
 }
 
-  ion-button {
-    font-family: "Pixels";    
-  }
+@font-face {
+  font-family: "Orator";
+  src: url("/assets/fonts/OratorStd.otf");
+}
+
+ion-content {
+  --background: #fff;
+  --background: #fff;
+  --padding-start: 1vh;
+  --padding-top: 1vh;
+  --padding-bottom: 1vh;
+  --padding-end: 1vh;
+}
+
+ion-button {
+  font-family: "Pixels";
+}
 
 ion-label {
-    font-size: 9vh;
-    font-family: "Pixels";
-    margin-bottom: 0vh;
-    line-height: 7vh;
-    letter-spacing: 0vw;
+  font-size: 9vh !important;
+  font-family: "Pixels" !important;
+  margin-bottom: 0vh;
+  line-height: 7vh;
+  letter-spacing: 0vw;
 }
 
+ion-item {
+  --padding-start: 0;
+}
+p {
+  font-family: "Orator";
+  font-size: 2vh;
+  line-height: 2vh;
+}
 
+.inner-scroll {
+  padding: 0;
+}
 a {
   text-decoration: underline;
 }
 
 a:visited {
-  color: black
+  color: black;
 }
