@@ -55,6 +55,7 @@ ion-label {
   margin-bottom: 0vh;
   line-height: 7vh;
   letter-spacing: 0vw;
+  color: #000 !important;
 }
 
 ion-item {
@@ -80,11 +81,9 @@ a:visited {
   color: black;
 }
 
-
 .footer-md::before {
   height: 0px;
 }
-
 
 ion-toolbar {
   --border-color: white;
@@ -92,27 +91,37 @@ ion-toolbar {
   padding-bottom: 1vh !important;
 }
 
+.ion-padding {
+  --padding-start: var(--ion-padding, 1vh);
+  --padding-end: var(--ion-padding, 1vh);
+  --padding-top: var(--ion-padding, 1vh);
+  --padding-bottom: var(--ion-padding, 1vh);
+  padding-left: var(--ion-padding, 1vh);
+  padding-right: var(--ion-padding, 1vh);
+  padding-top: var(--ion-padding, 1vh);
+  padding-bottom: var(--ion-padding, 1vh);
+}
 
 #save {
-  background-image: url('./assets/icons/save.png');
+  background-image: url("./assets/icons/save.png");
   height: 8vh;
   width: 8vh;
 }
 
 #share {
-  background-image: url('./assets/icons/share.png');
+  background-image: url("./assets/icons/share.png");
   height: 8vh;
   width: 8vh;
 }
 
 #note {
-  background-image: url('./assets/icons/note.png');
+  background-image: url("./assets/icons/note.png");
   height: 8vh;
   width: 8vh;
 }
 
 #close {
-  background-image: url('./assets/icons/close.png');
+  background-image: url("./assets/icons/close.png");
   height: 8vh;
   width: 8vh;
 }
