@@ -43,8 +43,8 @@ export class AppComponent {
       console.log(os, mode, name_browser, ver_browser);
 
       if (mode === 'standalone') {
-        // already installed
-        console.log('check for notifications');
+        // 
+        console.log('already installed');
         // check for notifications
         // this.notifications.notifyMe2();
         this.router.navigate(['/pages/home']);

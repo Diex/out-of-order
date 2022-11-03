@@ -34,17 +34,31 @@
 
   ion-content {
     --background: #fff;
-    font-family: "Pixels";
-    font-size: 11vh;
-    font-weight: 500;
-    line-height: 10vh;
-    --padding-top: 2vh;
-    --padding-start: 3vw;
-    --padding-end: 3vw;
-    letter-spacing: 2vw;
+    --background: #fff;
+    --padding-start: 1vh;
+    --padding-top: 1vh;
+    --padding-bottom: 1vh;
+    --padding-end: 1vh;
+    
 }
 
   ion-button {
     font-family: "Pixels";    
   }
 
+ion-label {
+    font-size: 9vh;
+    font-family: "Pixels";
+    margin-bottom: 0vh;
+    line-height: 7vh;
+    letter-spacing: 0vw;
+}
+
+
+a {
+  text-decoration: underline;
+}
+
+a:visited {
+  color: black
+}

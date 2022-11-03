@@ -1,25 +1,30 @@
 <ion-content>
-  <ion-list>
+
+  <ion-label routerLink="/pages/settings">SETTINGS</ion-label><br>
+  <ion-label routerLink="/pages/about">ABOUT</ion-label><br>
+  <ion-label routerLink="/pages/invite">INVITE</ion-label><br>
+  <ion-label routerLink="/pages/mystuff">MYSTUFF</ion-label><br>
+  <ion-label [routerLink]="['/pages/ongoing/', 'next']">ONGOING</ion-label><br>
+  <ion-label><a target="_blank" [href]="['http://sofiadurrieu.com/']">GOTOWEB</a></ion-label><br>
+  <!-- <ion-list>
     <ion-item lines="none">
-      <ion-label class="label"  routerLink="/pages/settings">SETTINGS</ion-label>
+      
     </ion-item>
     <ion-item lines="none">
-      <ion-label class="label"  routerLink="/pages/about">ABOUT</ion-label>
+    
     </ion-item>
     <ion-item lines="none">
-      <ion-label class="label"  routerLink="/pages/invite">INVITE</ion-label>
+      
     </ion-item>
     <ion-item lines="none">
-      <ion-label class="label"  routerLink="/pages/mystuff">MYSTUFF</ion-label>
+      
     </ion-item>
     <ion-item lines="none">
-      <ion-label class="label"  [routerLink]="['/pages/ongoing/', 'next']">ONGOING</ion-label>
+      
     </ion-item>
     <ion-item lines="none">
-      <ion-label class="label" ><a target="_blank" [href]="['http://sofiadurrieu.com/']" >GOTOWEB</a></ion-label>
+      
     </ion-item>
-    <!-- <ion-item lines="none" >
-      <ion-label slot="end" class="label" position="stacked" routerLink="/pages/home">X</ion-label>
-    </ion-item> -->
-  </ion-list>
+    
+  </ion-list> -->
 </ion-content>
