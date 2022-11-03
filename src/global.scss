@@ -35,15 +35,14 @@
   ion-content {
     --background: #fff;
     font-family: "Pixels";
-    font-size: 10vh;
+    font-size: 11vh;
     font-weight: 500;
     line-height: 10vh;
-  
+    --padding-top: 2vh;
     --padding-start: 3vw;
     --padding-end: 3vw;
-    // --padding-top: 1vh;
-    // --padding-bottom: 1vh;
-  }
+    letter-spacing: 2vw;
+}
 
   ion-button {
     font-family: "Pixels";    

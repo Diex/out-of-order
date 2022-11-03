@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { SwUpdate } from '@angular/service-worker';
-import { Platform } from '@ionic/angular';
+import { Platform, ToastController } from '@ionic/angular';
 import { StorageService } from './services/localstorage.service';
 import { NotificationsService } from './services/notifications.service';
 
@@ -16,7 +16,8 @@ export class AppComponent {
     private store: StorageService,
     public platform: Platform,
     private router: Router,
-    private notifications:NotificationsService
+    private notifications:NotificationsService,
+    private toast:ToastController
   ) {}
 
   deferredPrompt;
@@ -156,6 +157,8 @@ export class AppComponent {
         switch (e.type) {
           case 'VERSION_DETECTED':
             console.log(`Downloading new app version: ${e.version.hash}`);
+            this.presentToast();
+            
             break;
           case 'VERSION_READY':
             console.log(`Current app version: ${e.currentVersion.hash}`);
@@ -173,4 +176,15 @@ export class AppComponent {
       });
     });
   }
+
+  async presentToast() {
+    const toast = await this.toast.create({
+      message: 'Downloading update. Please wait...',
+      duration: 1500,
+      position: 'bottom'
+    });
+
+    await toast.present();
+  }
+
 }

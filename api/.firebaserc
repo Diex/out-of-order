@@ -1,6 +1,7 @@
 {
   "projects": {
-    "prod": "outoforder-2022"
+    "prod": "outoforder-2022",
+    "default": "outoforder-2022"
   },
   "targets": {},
   "etags": {}

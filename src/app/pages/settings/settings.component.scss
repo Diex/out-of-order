@@ -1,8 +1,28 @@
+ion-radio{
+    --color:transparent;
+    --color-checked: transparent;
+    width: 0;
+    height: 0;
+    margin: 0;
+}
+
+.item-radio-checked {
+    color: rgb(105, 105, 105);
+  }
+
+ion-item{
+    --padding-left: 0;
+}
+
+
 .label {
-    font-size: 7vh;
+    font-size: 11vh;
     font-family: "Pixels";
-    margin-bottom: 2vh;
-    line-height: 7vh;
+    margin-bottom: 0vh;
+    line-height: 10vh;
+    letter-spacing: 1vw;
+    --padding-start: 1vw;
+    font-weight: 500;
 }
 
 .checkbox {
