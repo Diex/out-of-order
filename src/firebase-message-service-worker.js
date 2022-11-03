@@ -54,7 +54,7 @@ messaging.onBackgroundMessage(function(payload) {
 });
 
 // From service-worker.js:
-const channel = new BroadcastChannel('sw-messages');
+// const channel = new BroadcastChannel('sw-messages');
 
 
 self.addEventListener('notificationclick', (event) => {

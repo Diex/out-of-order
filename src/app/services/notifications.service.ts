@@ -21,19 +21,19 @@ export class NotificationsService {
     private http: HttpClient
   ) {
     this.api = environment.firebase.api;
-    this.communications();
+    // this.communications();
   }
 
   topics = ['daily', 'twice', 'three', 'random'];
 
   // https://stackoverflow.com/questions/42127148/service-worker-communicate-to-clients
-  public communications() {
-    // From your client pages:
-    const channel = new BroadcastChannel('sw-messages');
-    channel.addEventListener('message', (event) => {
-      console.log('Received', event.data);
-    });
-  }
+  // public communications() {
+  //   // From your client pages:
+  //   const channel = new BroadcastChannel('sw-messages');
+  //   channel.addEventListener('message', (event) => {
+  //     console.log('Received', event.data);
+  //   });
+  // }
 
   public unsuscribe() {
     
