@@ -49,6 +49,7 @@ ion-button {
 }
 
 ion-label {
+  color: #000 !important;
   font-size: 9vh !important;
   font-family: "Pixels" !important;
   margin-bottom: 0vh;
@@ -93,25 +94,25 @@ ion-toolbar {
 
 
 #save {
-  background-image: url('./../../../assets/icons/save.png');
+  background-image: url('./assets/icons/save.png');
   height: 8vh;
   width: 8vh;
 }
 
 #share {
-  background-image: url('./../../../assets/icons/share.png');
+  background-image: url('./assets/icons/share.png');
   height: 8vh;
   width: 8vh;
 }
 
 #note {
-  background-image: url('./../../../assets/icons/note.png');
+  background-image: url('./assets/icons/note.png');
   height: 8vh;
   width: 8vh;
 }
 
 #close {
-  background-image: url('./../../../assets/icons/close.png');
+  background-image: url('./assets/icons/close.png');
   height: 8vh;
   width: 8vh;
 }
