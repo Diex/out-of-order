@@ -159,7 +159,8 @@ export class MissionsService {
     const toast = await this.toast.create({
       message: text,
       duration: 1500,
-      position: 'bottom'
+      position: 'bottom',
+      cssClass: 'ion-toast-custom'
     });
 
     await toast.present();

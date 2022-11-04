@@ -181,7 +181,8 @@ export class AppComponent {
     const toast = await this.toast.create({
       message: 'UPDATING. WAIT...',
       duration: 1500,
-      position: 'bottom'
+      position: 'bottom',
+      cssClass: 'ion-toast-custom'
     });
 
     await toast.present();

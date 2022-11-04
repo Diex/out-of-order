@@ -116,7 +116,7 @@ export class NotificationsService {
         message: notification.body,
         position: 'bottom',
         duration: 30000,
-        // cssClass: 'toast-custom-class',
+        cssClass: 'ion-toast-custom',
         buttons: [
           {
             text: 'ONGOING',

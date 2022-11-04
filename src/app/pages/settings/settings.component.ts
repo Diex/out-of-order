@@ -68,6 +68,7 @@ export class SettingsComponent implements OnInit, AfterViewInit {
         }
         if(store.os === 'android') this.notifications.subscribeToFCM(event.detail.value);
       });
+      
   }
 
   cancel() {
@@ -83,6 +84,7 @@ export class SettingsComponent implements OnInit, AfterViewInit {
         })        
         this.modal.dismiss(this.email, 'confirm');
       });
+      
     }else{
       this.presentToast("WRONG EMAIL")
     }
@@ -104,7 +106,8 @@ export class SettingsComponent implements OnInit, AfterViewInit {
     const toast = await this.toast.create({
       message: text,
       duration: 1500,
-      position: 'bottom'
+      position: 'bottom',
+      cssClass: 'ion-toast-custom'
     });
 
     await toast.present();
