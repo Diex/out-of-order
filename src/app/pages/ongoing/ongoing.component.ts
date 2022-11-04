@@ -53,8 +53,17 @@ export class OngoingComponent implements OnInit {
   }
 
   note(){
-    console.log(this.current.value.note)
-    this.noteText = this.current.value.note ? this.current.value.note : '';
+    console.log(this.current.value)
+    console.log(this.current.value.note)    
+    let index = this.missions.saved.value.findIndex(mission => mission.id == this.current.value.id); 
+    console.log(index);
+
+    if(index != -1) {
+      this.noteText = this.missions.saved.value[index].note;
+      return;
+    }
+    
+    this.noteText = '';
   }
 
   async share(){
@@ -83,13 +92,16 @@ export class OngoingComponent implements OnInit {
   }
 
   confirm() {
-    // let saved =  this.missions.isSaved(this.current.value.id);
-    // console.log(saved)
-    // if(!saved) {
-    //   console.log('not saved')      
-    // }
     this.modal.dismiss(this.name, 'confirm');
     console.log(this.noteText);
+    
+
+    let index = this.missions.saved.value.findIndex(mission => mission.id == this.current.value.id);     
+    if(index == -1) {
+      this.current.value['note'] = this.noteText;
+      this.save();
+      return;
+    }
     this.missions.addNote(this.noteText, this.current.value.id);
   }
 
