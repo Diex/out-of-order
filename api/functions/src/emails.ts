@@ -14,19 +14,27 @@ emails.get('/emails', async (req: any, res: any) => {
 });
 
 emails.post('/emails/subscribeToEmail', async (req: any, res: any) => {
+  
+  let email = req.body.email;
+  // let topicId = req.body.topicId;
+
   // console.log(db);
-    db.collection('emailusers')
-    .doc('ebTOqswbEVsPvnnxuvlK')
-    .get()
-    .then((doc:any) => {
-      console.log(doc);
-      if (!(doc && doc.exists)) {
-        return res.status(404).send({
-          error: 'Unable to find the document'
+    let emails = db.collection('emailusers')
+    let snapshot =  await emails.where('email', '==', email).get()
+
+      if (snapshot.empty) {
+        await db.collection('emailusers').doc().set(req.body);
+        res.status(200).send({
+          msg: `Added: ${req.body}`
         });
       }else{
-        res.status(200).send(doc.data());    
+        let files: FirebaseFirestore.DocumentData[] = [];
+        snapshot.forEach(doc => {
+          console.log(doc.id, '=>', doc.data());
+          files.push(doc.data())
+        });
+        res.status(200).send(files);    
       }})    
-});
+
 
 export default emails;
