@@ -22,9 +22,9 @@
   <ion-modal>
     <ng-template>
       <ion-content>
-        <ion-label>FOR NOTIFICATIONS WRITE DOWN UR EMAIL:</ion-label><br />
+        <ion-label>FOR NOTIFICATIONS WRITE DOWN UR EMAIL:</ion-label><br /><br />
         <ion-item>
-          <ion-input [(ngModel)]="email" class="custom-input" placeholder="_" [clearOnEdit]="true"></ion-input>
+          <ion-input type="email"  [(ngModel)]="email" class="custom-input" placeholder="_" [clearOnEdit]="true"></ion-input>
         </ion-item>
         <p>DEAR PERSON WITH AN IOS DEVICE:</p>
         <p>
@@ -41,7 +41,7 @@
       <ion-footer>
         <ion-toolbar>
           <ion-toolbar>
-            <ion-button slot="end" fill="clear" id="save" style="background-size:cover" (click)="confirm()"></ion-button>
+            <ion-button slot="end" fill="clear" id="ok" style="background-size:cover" (click)="confirm()"></ion-button>
             <ion-button slot="end" fill="clear" id="close" style="background-size:cover" (click)="cancel()"></ion-button>
           </ion-toolbar>      
         </ion-toolbar>

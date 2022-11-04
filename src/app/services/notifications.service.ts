@@ -61,6 +61,13 @@ export class NotificationsService {
       .subscribe();
   }
 
+  public susbscribeToEmail(topicId, email){
+    this.http
+    .post(this.api + '/topics/susbcribeToEmail', { topicId, email })
+    .pipe(map((res) => console.log(res))).subscribe();
+  }
+
+
   public subscribeToFCM(topicId) {
     // https://firebase.google.com/docs/reference/js/messaging_
     this.token = from(

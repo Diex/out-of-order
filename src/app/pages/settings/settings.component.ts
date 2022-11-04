@@ -1,4 +1,5 @@
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import { Router } from '@angular/router';
 import { IonModal, ModalController, ToastController } from '@ionic/angular';
 import { StorageService } from 'src/app/services/localstorage.service';
 import { NotificationsService } from 'src/app/services/notifications.service';
@@ -18,7 +19,10 @@ export class SettingsComponent implements OnInit, AfterViewInit {
   @ViewChild(IonModal) modal: IonModal;
 
 
-  constructor(private store:StorageService,private notifications:NotificationsService, private toast:ToastController) { }
+  constructor(private store:StorageService,
+    private notifications:NotificationsService, 
+    private toast:ToastController,
+    private router:Router) { }
 
    ngOnInit() {
     
@@ -62,11 +66,18 @@ export class SettingsComponent implements OnInit, AfterViewInit {
           notifications: event.detail.value
         });                        
         console.log('os:', store.os, 'isAndroid', store.os === 'android');
-        if(event.detail.value === 'null') {
-          if(store.os === 'android') this.notifications.unsuscribe();  
-          return;
+        if(store.os === 'android'){
+          if(event.detail.value === 'null') {
+            if(store.os === 'android') this.notifications.unsuscribe();              
+          }else{
+            if(store.os === 'android') this.notifications.subscribeToFCM(event.detail.value);  
+          }
+        }else{ // ios subscribe mail
+          this.notifications.susbscribeToEmail(event.detail.value, store.email)
         }
-        if(store.os === 'android') this.notifications.subscribeToFCM(event.detail.value);
+
+        this.router.navigate(['/pages/home']);
+        console.log('done')
       });
       
   }
