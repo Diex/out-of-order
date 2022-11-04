@@ -63,7 +63,7 @@ export class NotificationsService {
 
   public susbscribeToEmail(topicId, email){
     this.http
-    .post(this.api + '/topics/susbcribeToEmail', { topicId, email })
+    .post(this.api + '/emails/susbcribeToEmail', { topicId, email })
     .pipe(map((res) => console.log(res))).subscribe();
   }
 

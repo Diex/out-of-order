@@ -4,11 +4,14 @@ import * as functions from "firebase-functions";
 import express from "express";
 import { RuntimeOptions } from "firebase-functions";
 import topics from "./topics";
-import admin from "firebase-admin";
+import emails from "./emails";
 
-import { initializeApp } from "firebase-admin/app";
+// import admin from "firebase-admin";
 
-const serviceAccount = require("./../outoforder-2022-firebase-adminsdk-tj6ui-daadd8db23.json");
+// import { initializeApp } from "firebase-admin/app";
+
+
+
 const cors = require("cors");
 
 const app = express();
@@ -26,13 +29,11 @@ main.use("/v1", app);
 main.use(express.json);
 main.use(express.urlencoded({ extended: false }));
 app.use(cors());
+app.use(emails);
 app.use(topics);
 
-initializeApp({
-  // credential: applicationDefault(),
-  credential: admin.credential.cert(serviceAccount),
-  // databaseURL: 'https://<DATABASE_NAME>.firebaseio.com'
-});
+
+
 
 const runtimeOpts: RuntimeOptions = {
   timeoutSeconds: 60,
@@ -40,6 +41,9 @@ const runtimeOpts: RuntimeOptions = {
 };
 
 export const api = functions.runWith(runtimeOpts).https.onRequest(main);
+
+
+
 
 const nodemailer = require('nodemailer');
 

@@ -4,8 +4,6 @@ import { from, map, forkJoin } from 'rxjs';
 const express = require('express');
 const topics = express();
 
-// import { getMessaging } from "firebase/messaging";
-
 topics.get('/topics', async (req: any, res: any) => {
   console.log('Hello topics');
   res.status(200).send('hello from topics');
@@ -51,20 +49,7 @@ topics.post('/topics/unsubscribeAll', async (req: any, res: any) => {
       })
     )
     .subscribe();
-
-  // from(topics).pipe(
-  //     concatMap((topic: string) =>
-  //       from(
-  //         messaging()
-  //           .unsubscribeFromTopic(token, topic)
-  //           .then((result) => results.push(result))
-  //       )
-  //     ),
-  //     map(() => {
-  //       res.status(200).send(results);
-  //     })
-  //   )
-  //   .subscribe();
 });
+
 
 export default topics;
