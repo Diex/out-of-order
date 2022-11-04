@@ -11,32 +11,37 @@ import { NotificationsService } from 'src/app/services/notifications.service';
 export class SettingsComponent implements OnInit, AfterViewInit {
 
   settings ;
-  ios = true;
+  ios = false;
   email = '';
-  savedEmail = '';
+  // savedEmail = '';
 
   @ViewChild(IonModal) modal: IonModal;
 
 
   constructor(private store:StorageService,private notifications:NotificationsService, private toast:ToastController) { }
 
-  ngOnInit() {
+   ngOnInit() {
     
-    this.store.get('store').then((store) => {
-      if(store?.notifications){
-        this.ios = store.os === 'ios' ? true : false;
-        this.savedEmail = store.email;
-        
-      }
-
-      this.settings = store?.notifications;
-    });
+   
   }
 
   ngAfterViewInit(): void {
     //Called after ngAfterContentInit when the component's view has been initialized. Applies to components only.
     //Add 'implements AfterViewInit' to the class.
-    if(this.ios && !this.savedEmail) this.modal.present();
+    this.store.get('store').then((store) => {
+      if(store?.notifications){
+        this.ios = store.os === 'ios' ? true : false;
+        this.email = store.email;        
+      }
+
+      this.settings = store?.notifications;
+      console.log(this.ios, this.email);
+      if(this.ios) {      
+        this.modal.present();
+      }
+    });
+    
+    
   }
 
   validateEmail(mail) 
@@ -50,16 +55,18 @@ export class SettingsComponent implements OnInit, AfterViewInit {
   }
 
   updateNotifications(event){
+    console.log(event);
       this.store.get('store').then((store) => {
         this.store.set('store', {
           ...store,
           notifications: event.detail.value
         });                        
+        console.log('os:', store.os, 'isAndroid', store.os === 'android');
         if(event.detail.value === 'null') {
-          if(store.os.android) this.notifications.unsuscribe();  
+          if(store.os === 'android') this.notifications.unsuscribe();  
           return;
         }
-        if(store.os.android) this.notifications.subscribeToFCM(event.detail.value);
+        if(store.os === 'android') this.notifications.subscribeToFCM(event.detail.value);
       });
   }
 
@@ -70,7 +77,10 @@ export class SettingsComponent implements OnInit, AfterViewInit {
   confirm() {
     if(this.validateEmail(this.email)){      
       this.store.get('store').then((store) => {
-        store['email'] = this.email;
+        this.store.set('store', {
+          ...store,
+          email: this.email
+        })        
         this.modal.dismiss(this.email, 'confirm');
       });
     }else{
