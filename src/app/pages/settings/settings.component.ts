@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import { IonModal, ModalController, ToastController } from '@ionic/angular';
 import { StorageService } from 'src/app/services/localstorage.service';
 import { NotificationsService } from 'src/app/services/notifications.service';
 
@@ -7,22 +8,45 @@ import { NotificationsService } from 'src/app/services/notifications.service';
   templateUrl: './settings.component.html',
   styleUrls: ['./settings.component.scss'],
 })
-export class SettingsComponent implements OnInit {
+export class SettingsComponent implements OnInit, AfterViewInit {
 
   settings ;
-  safari = false;
-  
+  ios = true;
+  email = '';
+  savedEmail = '';
 
-  constructor(private store:StorageService,private notifications:NotificationsService) { }
+  @ViewChild(IonModal) modal: IonModal;
+
+
+  constructor(private store:StorageService,private notifications:NotificationsService, private toast:ToastController) { }
 
   ngOnInit() {
+    
     this.store.get('store').then((store) => {
       if(store?.notifications){
-        this.safari = store.os === 'ios' ? true : false;
-        console.log(this.safari)
-        this.settings = store.notifications
+        this.ios = store.os === 'ios' ? true : false;
+        this.savedEmail = store.email;
+        
       }
+
+      this.settings = store?.notifications;
     });
+  }
+
+  ngAfterViewInit(): void {
+    //Called after ngAfterContentInit when the component's view has been initialized. Applies to components only.
+    //Add 'implements AfterViewInit' to the class.
+    if(this.ios && !this.savedEmail) this.modal.present();
+  }
+
+  validateEmail(mail) 
+  {
+   if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(mail))
+    {
+      return (true)
+    }
+      // alert("You have entered an invalid email address!")
+      return (false)
   }
 
   updateNotifications(event){
@@ -39,4 +63,40 @@ export class SettingsComponent implements OnInit {
       });
   }
 
+  cancel() {
+    this.modal.dismiss(null, 'cancel');
+  }
+
+  confirm() {
+    if(this.validateEmail(this.email)){      
+      this.store.get('store').then((store) => {
+        store['email'] = this.email;
+        this.modal.dismiss(this.email, 'confirm');
+      });
+    }else{
+      this.presentToast("WRONG EMAIL")
+    }
+    
+    
+  }
+
+  openModal() {
+    this.modal.present();
+
+    // const { data, role } = await modal.onWillDismiss();
+
+    // if (role === 'confirm') {
+    //   this.message = `Hello, ${data}!`;
+    // }
+  }
+
+  async presentToast(text) {
+    const toast = await this.toast.create({
+      message: text,
+      duration: 1500,
+      position: 'bottom'
+    });
+
+    await toast.present();
+  }
 }

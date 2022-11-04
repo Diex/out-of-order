@@ -1,3 +1,26 @@
 <ion-content>
-  <ion-label>{{string}}</ion-label>
+  <div [ngSwitch]="osua">
+    <div *ngSwitchCase="'andxxx'">
+      <ion-label>USE CHROME BROWSER</ion-label>
+      <ion-label>/</ion-label><br />
+    </div>
+    <div *ngSwitchCase="'andchr'">
+      <ion-label>IN TOP NAVIGATION BAR</ion-label><br />
+      <ion-label>/</ion-label><br />
+      <ion-label>TAP ADD TO HOME SCREEN IN SCROLL DOWN MENU</ion-label><br />
+      <ion-label>/</ion-label><br />
+      <ion-label>ADD</ion-label><br />
+    </div>
+    <div *ngSwitchCase="'iosxxx'">
+      <ion-label>USE SAFARI BROWSER</ion-label>
+      <ion-label>/</ion-label><br />
+    </div>
+    <div *ngSwitchCase="'iossafa'">
+      <ion-label>IN BOTTOM NAVIGATION BAR</ion-label><br />
+      <ion-label>/</ion-label><br />
+      <ion-label>TAP ADD TO HOME SCREEN IN SCROLL DOWN MENU</ion-label><br />
+      <ion-label>/</ion-label><br />
+      <ion-label>ADD</ion-label><br />
+    </div>
+  </div>
 </ion-content>
