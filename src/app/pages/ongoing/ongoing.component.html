@@ -1,24 +1,28 @@
 <ion-content class="ion-padding">
   <ion-label>{{(current| async).text | uppercase}}</ion-label>
 
-  <ion-modal trigger="note" (willDismiss)="onWillDismiss($event)">
-    <ng-template>
-      <ion-header>
-        <ion-toolbar>
-          <ion-buttons slot="start">
-            <ion-button (click)="cancel()">Cancel</ion-button>
-          </ion-buttons>
-          <ion-buttons slot="end">
-            <ion-button (click)="confirm()" [strong]="true">Confirm</ion-button>
-          </ion-buttons>
-        </ion-toolbar>
-      </ion-header>
+  <ion-modal trigger="note" (willDismiss)="onWillDismiss($event)">    
+  <ng-template>
       <ion-content>
         <ion-textarea [(ngModel)]="noteText" class="custom-textarea" autoGrow="true" placeholder="Enter text, leave a note, come back"
           [clearOnEdit]="true"></ion-textarea>
       </ion-content>
-    </ng-template>
+      
+      <ion-footer>        
+        <ion-toolbar>
+          <!-- <ion-buttons slot="start">
+            <ion-button (click)="cancel()">Cancel</ion-button>
+          </ion-buttons>
+          <ion-buttons slot="end">
+            <ion-button (click)="confirm()" [strong]="true">Confirm</ion-button>
+          </ion-buttons> -->
+          <ion-button slot="end" fill="clear" id="save" style="background-size:cover" (click)="confirm()"></ion-button>
+          <ion-button slot="end" fill="clear" id="close" style="background-size:cover" (click)="cancel()"></ion-button>
+        </ion-toolbar>      
+      </ion-footer>    
+      </ng-template>
   </ion-modal>
+
 </ion-content>
 
 <ion-footer>
