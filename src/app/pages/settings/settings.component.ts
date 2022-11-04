@@ -10,6 +10,7 @@ import { NotificationsService } from 'src/app/services/notifications.service';
 export class SettingsComponent implements OnInit {
 
   settings ;
+  safari = false;
   
 
   constructor(private store:StorageService,private notifications:NotificationsService) { }
@@ -17,6 +18,8 @@ export class SettingsComponent implements OnInit {
   ngOnInit() {
     this.store.get('store').then((store) => {
       if(store?.notifications){
+        this.safari = store.os === 'ios' ? true : false;
+        console.log(this.safari)
         this.settings = store.notifications
       }
     });
@@ -29,10 +32,10 @@ export class SettingsComponent implements OnInit {
           notifications: event.detail.value
         });                        
         if(event.detail.value === 'null') {
-          this.notifications.unsuscribe();  
+          if(store.os.android) this.notifications.unsuscribe();  
           return;
         }
-        this.notifications.subscribeToFCM(event.detail.value);
+        if(store.os.android) this.notifications.subscribeToFCM(event.detail.value);
       });
   }
 

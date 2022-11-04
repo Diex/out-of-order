@@ -1,5 +1,4 @@
 <ion-content>
-    <!-- <ion-list> -->
         <ion-radio-group [value]="settings" (ionChange)="updateNotifications($event)">
               <ion-item lines="none">
                 <ion-radio slot="start" value="0"></ion-radio>
@@ -18,6 +17,12 @@
                 <ion-label>NONE</ion-label>
               </ion-item>
         </ion-radio-group>
+        
+        <ion-item [hidden]="safari">
+          <ion-label>chinga tu madre</ion-label>
+          <ion-input  placeholder="ENTER YOUR EMAIL"></ion-input>
+        </ion-item>
+        
   </ion-content>
   <ion-footer>
     <ion-toolbar>

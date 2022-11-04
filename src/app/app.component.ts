@@ -179,7 +179,7 @@ export class AppComponent {
 
   async presentToast() {
     const toast = await this.toast.create({
-      message: 'Updating. Wait...',
+      message: 'UPDATING. WAIT...',
       duration: 1500,
       position: 'bottom'
     });
