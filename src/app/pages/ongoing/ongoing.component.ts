@@ -50,10 +50,10 @@ export class OngoingComponent implements OnInit {
 
   save(){
     this.missions.save();
-    // this.presentToast('Saved...');
   }
 
   note(){
+    console.log(this.current.value.note)
     this.noteText = this.current.value.note ? this.current.value.note : '';
   }
 
@@ -83,11 +83,11 @@ export class OngoingComponent implements OnInit {
   }
 
   confirm() {
-    let saved =  this.missions.isSaved(this.current.value.id);
-    console.log(saved)
-    if(!saved) {
-      console.log('not saved')      
-    }
+    // let saved =  this.missions.isSaved(this.current.value.id);
+    // console.log(saved)
+    // if(!saved) {
+    //   console.log('not saved')      
+    // }
     this.modal.dismiss(this.name, 'confirm');
     console.log(this.noteText);
     this.missions.addNote(this.noteText, this.current.value.id);

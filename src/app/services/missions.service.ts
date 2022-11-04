@@ -100,14 +100,18 @@ export class MissionsService {
   }
 
   save() {
+  
     this.store.get('saved').then((saved: Array<any>) => {
       if (!saved) saved = [];
       if (
         saved.findIndex((mission) => mission.id === this.current.value.id) != -1
       ) {
-        window.alert('already saved');
+        // window.alert('already saved');
+        this.presentToast('ALREADY SAVED')
         return;
       }
+      console.log('save mission', this.current.value
+      .id )
       saved.push(this.current.value);
       this.store.set('saved', saved); // updates storage
       this.saved.next(saved); // updates subscribers
@@ -143,10 +147,11 @@ export class MissionsService {
       if (index != -1) {
         // window.alert('already saved');
         saved[index]['note'] = text;
-        console.log(saved[index]);
+        // console.log(saved[index]);
         this.store.set('saved', saved); // updates storage
         this.saved.next(saved); // updates subscribers
       }
+      
     });
   }
 
