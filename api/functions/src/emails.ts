@@ -28,12 +28,13 @@ emails.post('/emails/subscribeToEmail', async (req: any, res: any) => {
           msg: `Added: ${req.body}`
         });
       }else{
-        let files: FirebaseFirestore.DocumentData[] = [];
-        snapshot.forEach(doc => {
-          console.log(doc.id, '=>', doc.data());
-          files.push(doc.data())
-        });
-        res.status(200).send(files);    
+        // let files: FirebaseFirestore.DocumentData[] = [];
+        // snapshot.forEach(doc => {
+        //   console.log(doc.id, '=>', doc.data());
+        //   files.push(doc.data())
+        // });
+        snapshot.docs[0].ref.update(req.body);
+        res.status(200).send(`User updated... ${{...req.body}}`);    
       }})    
 
 
