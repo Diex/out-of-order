@@ -44,38 +44,11 @@ export const api = functions.runWith(runtimeOpts).https.onRequest(main);
 
 
 
-
-const nodemailer = require('nodemailer');
-
-var transporter = nodemailer.createTransport({
-  host: 'smtp.gmail.com',
-  port: 465,
-  secure: true,
-  auth: {
-      user: 'developer.viset@gmail.com',
-      pass: 'mkzaphfsampxjupn'
-  }
-});
+import { sendMails } from "./emails";
 
 
-export const scheduledFunction = functions.pubsub.schedule('every 5 minutes').onRun((context) => {
-  console.log('This will be run every 5 minutes!');
+export const scheduledFunction = functions.pubsub.schedule('0 17 * * *').timeZone('Europe/Brussels').onRun(  (context) => {
+  
+  sendMails();
 
-  const mailOptions = {
-    from: `developer.viset@gmail.com`,
-    to: 'aboiledtiger@gmail.com',
-    subject: 'contact form message',
-    html: `<h1>Order Confirmation</h1>
-     <p> <b>Email: </b>testing </p>`
-};
-  return transporter.sendMail(mailOptions, (error:any, data:any) => {
-    console.log(data);
-    if (error) {
-      console.log(error)
-      return
-  }
-  // console.log("Sent!")
-});
-
-  return null;
 });

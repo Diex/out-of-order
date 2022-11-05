@@ -27,4 +27,66 @@ emails.post('/emails/subscribeToEmail', async (req: any, res: any) => {
       }})    
 
 
+      const nodemailer = require('nodemailer');
+      const moment = require('moment');
+
+var transporter = nodemailer.createTransport({
+  host: 'smtp.gmail.com',
+  port: 465,
+  secure: true,
+  auth: {
+      user: 'developer.viset@gmail.com',
+      pass: 'mkzaphfsampxjupn'
+  }
+});
+
+
+
+export const sendMails = async () => {
+
+  console.log('send mail running');
+  let dow = moment().day();
+  let topic1: any[] = [];
+  let topic2: any[] = []; 
+  let topic3: any[] = [];
+
+  const snapshot = await db.collection('users').get();
+    snapshot.forEach((doc) => {
+      let data = doc.data();
+
+      if(data.topicId == 0) { 
+        topic1.push(data.email)
+      }
+      // 
+
+      if(data.topicId == 1 && (dow == 2 || dow == 5)) {
+        topic2.push(data.email)
+      }
+
+      if(data.topicId == 2 && (dow == 1 || dow == 3 || dow == 5)) {
+        topic3.push(data.email)
+      }
+
+      console.log(topic1, topic2, topic3);
+  });
+
+
+
+  const mailOptions = {
+    from: `developer.viset@gmail.com`,
+    to: 'aboiledtiger@gmail.com',
+    subject: 'contact form message',
+    html: `<h1>Order Confirmation</h1>
+     <p> <b>Email: </b>testing </p>`
+  };
+
+  return transporter.sendMail(mailOptions, (error:any, data:any) => {
+    console.log(data);
+    if (error) {
+      console.log(error)
+      return
+  }
+});
+}
+
 export default emails;
