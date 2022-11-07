@@ -12,7 +12,7 @@ emails.get('/emails', async (req: any, res: any) => {
 });
 
 emails.post('/emails/subscribeToEmail', async (req: any, res: any) => {
-  
+
   let email = req.body.email;
     let emails = db.collection('emailusers')
     let snapshot =  await emails.where('email', '==', email).get()
@@ -23,8 +23,8 @@ emails.post('/emails/subscribeToEmail', async (req: any, res: any) => {
         });
       }else{
         snapshot.docs[0].ref.update(req.body);
-        res.status(200).json({updated: `${req.body.email}`});    
-      }})    
+        res.status(200).json({updated: `${req.body.email}`});
+      }})
 
 
       const nodemailer = require('nodemailer');
@@ -35,58 +35,87 @@ var transporter = nodemailer.createTransport({
   port: 465,
   secure: true,
   auth: {
-      user: 'developer.viset@gmail.com',
-      pass: 'mkzaphfsampxjupn'
+      user: 'outoforderapp@gmail.com',
+      pass: 'fyanmzcllnkjxzbd'
   }
 });
 
+
+const sendMail = (email:string) => {
+  const mailOptions = {
+    from: `outoforderapp@gmail.com`,
+    to: email,
+    subject: 'A PROPOSITION FOR YOU',
+    html: `<h1>Go to Ooo app to check your task</h1>
+     <p> <b>User: </b>${email} </p>`
+  };
+
+  return transporter.sendMail(mailOptions, (error:any, data:any) => {
+      // console.log(data);
+    if (error) {
+      console.log(error)
+      return
+  }
+  });
+
+}
 
 
 export const sendMails = async () => {
 
   console.log('send mail running');
   let dow = moment().day();
+  let topic0: any[] = [];
   let topic1: any[] = [];
-  let topic2: any[] = []; 
-  let topic3: any[] = [];
+  let topic2: any[] = [];
 
-  const snapshot = await db.collection('users').get();
-    snapshot.forEach((doc) => {
+  const snapshot = await db.collection('emailusers').get();
+    snapshot.forEach((doc: any) => {
       let data = doc.data();
 
-      if(data.topicId == 0) { 
-        topic1.push(data.email)
-      }
-      // 
+      switch(data.topicId){
+          case '0':
+          topic0.push(data.email)
+          break;
+          case '1':
+            topic1.push(data.email);
+          break;
+          case '2':
+            topic2.push(data.email);
+          break;
 
-      if(data.topicId == 1 && (dow == 2 || dow == 5)) {
-        topic2.push(data.email)
       }
 
-      if(data.topicId == 2 && (dow == 1 || dow == 3 || dow == 5)) {
-        topic3.push(data.email)
-      }
-
-      console.log(topic1, topic2, topic3);
   });
 
+  // sendMail('aboiledtiger@gmail.com');
+  /*
+  */
+
+    if(dow == 1){  // 1XWEEK on mondays
+      topic0.forEach((email)=>{
+        sendMail(email);
+      })
+    }
+
+    if(dow == 2 || dow == 4){ // 2XWEEK tue/thurs
+      topic1.forEach((email)=>{
+        sendMail(email);
+      })
+    }
+
+    if(dow == 1 || dow == 3 || dow == 5){
+      topic2.forEach((email)=>{
+        sendMail(email);
+      })
+    }
 
 
-  const mailOptions = {
-    from: `developer.viset@gmail.com`,
-    to: 'aboiledtiger@gmail.com',
-    subject: 'contact form message',
-    html: `<h1>Order Confirmation</h1>
-     <p> <b>Email: </b>testing </p>`
-  };
 
-  return transporter.sendMail(mailOptions, (error:any, data:any) => {
-    console.log(data);
-    if (error) {
-      console.log(error)
-      return
-  }
-});
+  console.log(topic0, topic1, topic2);
+  console.log(dow);
+
+  return 'byebye';
 }
 
 export default emails;

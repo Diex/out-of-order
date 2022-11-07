@@ -64,7 +64,7 @@ ion-item {
 .ion-toast-custom {
   font-family: "Orator";
   font-size: 2vh;
-  
+
 }
 p {
   font-family: "Orator";
@@ -134,6 +134,24 @@ ion-toolbar {
 
 #ok {
   background-image: url("./assets/icons/ok.png");
+  height: 8vh;
+  width: 8vh;
+}
+
+#install {
+  background-image: url("./assets/icons/install.png");
+  height: 8vh;
+  width: 8vh;
+}
+
+#add {
+  background-image: url("./assets/icons/add.png");
+  height: 8vh;
+  width: 8vh;
+}
+
+#dots {
+  background-image: url("./assets/icons/dots.png");
   height: 8vh;
   width: 8vh;
 }
