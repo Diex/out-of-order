@@ -1,3 +1,4 @@
+/* eslint-disable */
 import { messaging } from 'firebase-admin';
 import { from, map, forkJoin } from 'rxjs';
 

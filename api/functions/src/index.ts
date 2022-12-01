@@ -1,5 +1,5 @@
 // TODO ENGANIA PICHANGA
-/* eslint-disable */ 
+/* eslint-disable */
 import * as functions from "firebase-functions";
 import express from "express";
 import { RuntimeOptions } from "firebase-functions";
@@ -48,7 +48,5 @@ import { sendMails } from "./emails";
 
 
 export const scheduledFunction = functions.pubsub.schedule('0 17 * * *').timeZone('Europe/Brussels').onRun(  (context) => {
-  
   sendMails();
-
 });

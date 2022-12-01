@@ -1,4 +1,4 @@
-
+/* eslint-disable */
 import fb from './fb';
 
 const express = require('express');
@@ -45,9 +45,9 @@ const sendMail = (email:string) => {
   const mailOptions = {
     from: `outoforderapp@gmail.com`,
     to: email,
-    subject: 'A PROPOSITION FOR YOU',
-    html: `<h1>Go to Ooo app to check your task</h1>
-     <p> <b>User: </b>${email} </p>`
+    subject: 'OOO PROPOSITION',
+    html: `<h1>go to outoforder app and see what is it about</h1>`
+    //  <p> <b>User: </b>${email} </p>`
   };
 
   return transporter.sendMail(mailOptions, (error:any, data:any) => {

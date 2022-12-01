@@ -62,15 +62,17 @@ export class SettingsComponent implements OnInit, AfterViewInit {
       console.log('os:', store.os, 'isAndroid', store.os === 'android');
       if (store.os === 'android') {
         if (event.detail.value === '3') {
-          if (store.os === 'android') this.notifications.unsuscribe();
+          // if (store.os === 'android')
+          this.notifications.unsuscribe();
         } else {
-          if (store.os === 'android')
+          // if (store.os === 'android')
             this.notifications.subscribeToFCM(event.detail.value);
         }
       } else {
         // ios subscribe mail
-        if (store.email && event.detail.value)
+        if (store.email && event.detail.value){
           this.notifications.susbscribeToEmail(event.detail.value, store.email);
+        }
       }
     });
 
