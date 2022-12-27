@@ -108,6 +108,12 @@ ion-toolbar {
   padding-bottom: var(--ion-padding, 1vh);
 }
 
+#feedback {
+  background-image: url("./assets/icons/feedback.png");
+  height: 8vh;
+  width: 8vh;
+}
+
 #save {
   background-image: url("./assets/icons/save.png");
   height: 8vh;

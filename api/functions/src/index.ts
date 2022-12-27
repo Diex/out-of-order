@@ -6,10 +6,6 @@ import { RuntimeOptions } from "firebase-functions";
 import topics from "./topics";
 import emails from "./emails";
 
-// import admin from "firebase-admin";
-
-// import { initializeApp } from "firebase-admin/app";
-
 
 
 const cors = require("cors");
@@ -17,13 +13,6 @@ const cors = require("cors");
 const app = express();
 const main = express();
 
-// // Start writing Firebase Functions
-// // https://firebase.google.com/docs/functions/typescript
-// firebase deploy --only functions
-// export const api = functions.https.onRequest((request, response) => {
-//   functions.logger.info("Hello logs!", {structuredData: true});
-//   response.send("Hello api!");
-// });
 
 main.use("/v1", app);
 main.use(express.json);
@@ -32,11 +21,16 @@ app.use(cors());
 app.use(emails);
 app.use(topics);
 
+app.get('/akg', async (req: any, res: any) => {
+  console.log('Hello API');
+  res.status(200).send('hello from API');
+})
+
 
 
 
 const runtimeOpts: RuntimeOptions = {
-  timeoutSeconds: 60,
+  timeoutSeconds: 20,
   memory: "256MB",
 };
 

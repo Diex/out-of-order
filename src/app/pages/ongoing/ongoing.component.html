@@ -1,7 +1,7 @@
 <ion-content class="ion-padding">
   <ion-label>{{(current| async).text | uppercase}}</ion-label>
 
-  <ion-modal trigger="note" (willDismiss)="onWillDismiss($event)">    
+  <ion-modal #noteModal trigger="note" (willDismiss)="onWillDismiss($event)">    
   <ng-template>
       <ion-content>
         <ion-textarea [(ngModel)]="noteText" class="custom-textarea" autoGrow="true" placeholder="LEAVE A NOTE. COME BACK"
@@ -17,10 +17,28 @@
       </ng-template>
   </ion-modal>
 
+
+  <ion-modal #feedbackModal trigger="feedback" (willDismiss)="onWillDismiss($event)">    
+    <ng-template>
+        <ion-content>
+          <ion-textarea [(ngModel)]="feedbackText" class="custom-textarea" autoGrow="true" placeholder="LEAVE US YOUR FEEDBACK"
+            [clearOnEdit]="false"></ion-textarea>
+        </ion-content>
+        
+        <ion-footer>        
+          <ion-toolbar>
+            <ion-button slot="end" fill="clear" id="ok" style="background-size:cover" (click)="fb()"></ion-button>
+            <ion-button slot="end" fill="clear" id="close" style="background-size:cover" (click)="cancel()"></ion-button>
+          </ion-toolbar>      
+        </ion-footer>    
+        </ng-template>
+    </ion-modal>
+  
 </ion-content>
 
 <ion-footer>
   <ion-toolbar>
+    <ion-button slot="end" fill="clear" id="feedback" style="background-size:cover"></ion-button>
     <ion-button slot="end" fill="clear" id="note" style="background-size:cover" (click)="note()"></ion-button>
     <ion-button slot="end" fill="clear" id="share" style="background-size:cover" (click)="share()"></ion-button>
     <ion-button slot="end" fill="clear" id="save" style="background-size:cover" (click)="save()"></ion-button>

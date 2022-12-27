@@ -1,11 +1,14 @@
+import { HttpClient } from '@angular/common/http';
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { IonModal, ModalController, ToastController } from '@ionic/angular';
 import { OverlayEventDetail } from '@ionic/core';
+
 import { BehaviorSubject, Subject } from 'rxjs';
 import { map, takeUntil } from 'rxjs/operators';
 import { StorageService } from 'src/app/services/localstorage.service';
 import { MissionsService } from 'src/app/services/missions.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-ongoing',
@@ -13,60 +16,65 @@ import { MissionsService } from 'src/app/services/missions.service';
   styleUrls: ['./ongoing.component.scss'],
 })
 export class OngoingComponent implements OnInit {
-  @ViewChild(IonModal) modal: IonModal;
+  @ViewChild('noteModal') noteModal: IonModal;
+  @ViewChild('feedbackModal') feedbackModal: IonModal;
+
   noteText;
-  current:BehaviorSubject<any> = new BehaviorSubject({});
-  unsuscribe:Subject<any> = new Subject();
+  feedbackText;
+  current: BehaviorSubject<any> = new BehaviorSubject({});
+  unsuscribe: Subject<any> = new Subject();
   edit = false;
   constructor(
-    public missions:MissionsService, 
-    private route: ActivatedRoute, 
-    private ctrl:ModalController,
-     ) { }
+    public missions: MissionsService,
+    private route: ActivatedRoute,
+    private http: HttpClient,
+    private store: StorageService,
+    private toast: ToastController,
+  ) { }
   //https://appdividend.com/2020/07/14/angular-route-params-how-to-pass-route-params-in-angular/
   ngOnInit() {
     this.route.params
-      .subscribe(params => {        
-        if(params.id && params.id !== 'next'){
-          let index = this.missions.saved.value.findIndex(mission => mission.id == params.id);        
+      .subscribe(params => {
+        if (params.id && params.id !== 'next') {
+          let index = this.missions.saved.value.findIndex(mission => mission.id == params.id);
           this.current.next(this.missions.saved.value[index]);
-        }else{
+        } else {
           this.missions.next();
           this.missions.current.pipe(
             takeUntil(this.unsuscribe),
             map(mission => {
               this.current.next(mission);
             })
-          ).subscribe();          
+          ).subscribe();
         }
       }
-    );
-    
+      );
+
   }
 
   ngOnDestroy(): void {
     this.unsuscribe.next();
   }
 
-  save(){
+  save() {
     this.missions.save();
   }
 
-  note(){
+  note() {
     console.log(this.current.value)
-    console.log(this.current.value.note)    
-    let index = this.missions.saved.value.findIndex(mission => mission.id == this.current.value.id); 
+    console.log(this.current.value.note)
+    let index = this.missions.saved.value.findIndex(mission => mission.id == this.current.value.id);
     console.log(index);
 
-    if(index != -1) {
+    if (index != -1) {
       this.noteText = this.missions.saved.value[index].note;
       return;
     }
-    
+
     this.noteText = '';
   }
 
-  async share(){
+  async share() {
 
     const shareData = {
       title: 'Out Of Order',
@@ -83,21 +91,21 @@ export class OngoingComponent implements OnInit {
     }
   }
 
-  
-  
+
+
   name: string;
 
   cancel() {
-    this.modal.dismiss(null, 'cancel');
+    // close any modal
+    this.noteModal.dismiss(null, 'cancel');
+    this.feedbackModal.dismiss(null, 'cancel');
   }
 
   confirm() {
-    this.modal.dismiss(this.name, 'confirm');
+    this.noteModal.dismiss(this.name, 'confirm');
     console.log(this.noteText);
-    
-
-    let index = this.missions.saved.value.findIndex(mission => mission.id == this.current.value.id);     
-    if(index == -1) {
+    let index = this.missions.saved.value.findIndex(mission => mission.id == this.current.value.id);
+    if (index == -1) {
       this.current.value['note'] = this.noteText;
       this.save();
       return;
@@ -107,10 +115,52 @@ export class OngoingComponent implements OnInit {
 
   onWillDismiss(event: Event) {
     const ev = event as CustomEvent<OverlayEventDetail<string>>;
-    if (ev.detail.role === 'confirm') {
-      
-    }
+    if (ev.detail.role === 'confirm') { }
   }
 
+  async fb() {
+
+    let email;
+
+    await this.store.get('store').then(store => {
+      console.log(store.email)
+      email = store.email ?? undefined;
+    })
+
+    let data = {
+      'mission': this.missions.current.value.text,
+      'feedback': this.feedbackText,
+      'email': email
+    };
+
+    console.log(data);
+
+    this.http
+      .post(environment.firebase.api + '/emails/feedback', data)
+      .toPromise().then(
+        () => {
+          this.feedbackModal.dismiss(this.name, 'confirm');
+          this.feedbackText = '';
+          this.presentToast("FEEDBACK SENT...")
+        }
+      ).catch(error => {
+        this.feedbackModal.dismiss(this.name, 'confirm');
+        this.feedbackText = '';
+        this.presentToast(`THERE WAS AN ERROR: ${error}`);
+      })
+
+    console.log(this.feedbackText);
+  }
+
+  async presentToast(text) {
+    const toast = await this.toast.create({
+      message: text,
+      duration: 4000,
+      position: 'bottom',
+      cssClass: 'ion-toast-custom',
+    });
+
+    await toast.present();
+  }
 
 }
