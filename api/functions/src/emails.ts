@@ -76,7 +76,7 @@ const sendMail = (email: string) => {
     from: `outoforderapp@gmail.com`,
     to: email,
     subject: 'OOO PROPOSITION',
-    html: `<h1>GO TO 'OUTOFORDER -> ONGOING' APP AND SEE WHAT IS IT ABOUT</h1>`,
+    html: `<h1>GO TO 'OUTOFORDER APP -> ONGOING' AND SEE WHAT IS IT ABOUT</h1>`,
   };
 
   var transporter = nodemailer.createTransport({
